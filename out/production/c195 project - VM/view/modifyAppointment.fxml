@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="391.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModifyCustomer">
+   <children>
+      <Label layoutX="41.0" layoutY="52.0" text="Customer Name">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="68.0" layoutY="112.0" text="Address">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="377.0" layoutY="112.0" text="Postal Code">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="375.0" layoutY="52.0" text="Customer ID">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="74.0" layoutY="166.0" text="Phone">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="385.0" layoutY="236.0" prefHeight="27.0" prefWidth="79.0" text="Divisions">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="68.0" layoutY="236.0" text="Country">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="256.0" layoutY="319.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="63.0" text="Save" />
+      <Button layoutX="377.0" layoutY="319.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="64.0" text="Cancel" />
+      <TextField layoutX="194.0" layoutY="53.0" />
+      <TextField layoutX="194.0" layoutY="113.0" />
+      <TextField layoutX="194.0" layoutY="180.0" />
+      <TextField layoutX="497.0" layoutY="53.0" />
+      <TextField layoutX="497.0" layoutY="113.0" />
+      <ChoiceBox layoutX="194.0" layoutY="237.0" prefWidth="150.0" />
+      <ChoiceBox layoutX="497.0" layoutY="237.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

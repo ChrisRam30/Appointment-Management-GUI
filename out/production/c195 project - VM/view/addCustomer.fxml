@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="412.0" prefWidth="1162.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomer">
+   <children>
+      <Button layoutX="339.0" layoutY="309.0" mnemonicParsing="false" text="Save">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="537.0" layoutY="309.0" mnemonicParsing="false" text="Cancel">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label layoutX="93.0" layoutY="57.0" text="Customer ID">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="93.0" layoutY="129.0" text="Customer Name">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="93.0" layoutY="193.0" text="Address">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="537.0" layoutY="57.0" text="Postal Code">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="537.0" layoutY="129.0" text="Phone Number">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="537.0" layoutY="193.0" text="Countries">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField layoutX="299.0" layoutY="62.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField layoutX="299.0" layoutY="134.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField layoutX="299.0" layoutY="198.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField layoutX="737.0" layoutY="62.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField layoutX="737.0" layoutY="134.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField layoutX="737.0" layoutY="198.0" prefHeight="25.0" prefWidth="162.0" />
+      <Label layoutX="920.0" layoutY="197.0" text="Divisions">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <MenuButton layoutX="1003.0" layoutY="198.0" mnemonicParsing="false" text="Select State/Province">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+   </children>
+</AnchorPane>

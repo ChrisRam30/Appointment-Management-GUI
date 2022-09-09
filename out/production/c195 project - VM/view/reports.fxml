@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="539.0" prefWidth="1287.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Reports">
+   <children>
+      <TableView layoutX="41.0" layoutY="80.0" prefHeight="445.0" prefWidth="1223.0">
+        <columns>
+            <TableColumn prefWidth="104.80003356933594" text="Customer ID" />
+          <TableColumn prefWidth="148.00006103515625" text="Appointment ID" />
+          <TableColumn minWidth="0.0" prefWidth="157.5999755859375" text="Title" />
+            <TableColumn prefWidth="83.20001220703125" text="Type" />
+            <TableColumn prefWidth="75.0" text="Description" />
+            <TableColumn prefWidth="180.0" text="Start Time" />
+            <TableColumn prefWidth="183.20001220703125" text="End Time" />
+            <TableColumn prefWidth="138.4000244140625" text="Start Date" />
+            <TableColumn prefWidth="154.4000244140625" text="End Date" />
+        </columns>
+      </TableView>
+      <RadioButton layoutX="684.0" layoutY="45.0" mnemonicParsing="false" text="Contact Schedule" />
+      <RadioButton layoutX="985.0" layoutY="45.0" mnemonicParsing="false" text="Customer total by Type" />
+      <RadioButton layoutX="521.0" layoutY="45.0" mnemonicParsing="false" text="Customer total by month" />
+      <RadioButton layoutX="811.0" layoutY="45.0" mnemonicParsing="false" text="Customer total by Country" />
+      <Label layoutX="296.0" layoutY="45.0" text="Contact" />
+      <TextField layoutX="352.0" layoutY="41.0" />
+   </children>
+</AnchorPane>
