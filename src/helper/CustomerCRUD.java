@@ -6,7 +6,6 @@ import java.sql.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Appointments;
 import model.Customers;
 
 public class CustomerCRUD {
@@ -32,5 +31,31 @@ public class CustomerCRUD {
             throwables.printStackTrace();
         }
         return cList;
+    }
+    public static void deleteCustomer(int customerId) throws SQLException {
+
+        try {
+            String sql = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setInt(1, customerId);
+            ps.executeUpdate();
+
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static int insertCustomer(String customerName, String address, int postalCode,
+                                        int phone, int divisionId) throws SQLException {
+        String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, customerName);
+        ps.setString(2, address);
+        ps.setInt(3, postalCode);
+        ps.setInt(4, phone);
+        ps.setInt(5, divisionId);
+        int rowsAffected = ps.executeUpdate(); //required to initiate in main
+        return rowsAffected;
     }
 }

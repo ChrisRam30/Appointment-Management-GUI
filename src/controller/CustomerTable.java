@@ -12,9 +12,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointments;
+import model.Customers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CustomerTable implements Initializable {
@@ -58,7 +61,13 @@ public class CustomerTable implements Initializable {
     public void modifyCustomerButtonClick(ActionEvent actionEvent) {
     }
 
-    public void deleteCustomerButtonClick(ActionEvent actionEvent) {
+    public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
+
+        Customers CP = customerTable.getSelectionModel().getSelectedItem();
+
+
+        CustomerCRUD.deleteCustomer(CP.getCustomerId());
+        customerTable.setItems(CustomerCRUD.getAllCustomers());
     }
 
 }
