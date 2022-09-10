@@ -1,4 +1,4 @@
-package helper;
+/*package helper;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +16,7 @@ public class DeleteAppointmentCRUD {
     return appList;
     }
 
-    public static void deleteAppointment(int appointmentId) throws SQLException { //indicates what you want deleted
+    public static void deleteAppointmenta(int appointmentId) throws SQLException { //indicates what you want deleted
         try {
             String sql = "DELETE FROM APPOINTMENTS WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -29,7 +29,7 @@ public class DeleteAppointmentCRUD {
         ps.setTimestamp(7, endDateTime);
         ps.setInt(8, customerId);
         ps.setInt(9, userId);
-        ps.setInt(10, contactId);*/
+        ps.setInt(10, contactId);
             ps.executeUpdate();
 
 
@@ -38,3 +38,4 @@ public class DeleteAppointmentCRUD {
         }
     }
 }
+*/

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import helper.AppointmentsCRUD;
-import helper.DeleteAppointmentCRUD;
 import helper.JDBC;
 import model.Appointments;
 import javafx.event.ActionEvent;
@@ -38,6 +37,7 @@ public class AppointmentMenu implements Initializable {
     public Button deleteAppointmentButton;
     public Button logoutButton;
     public TableColumn appointmentIdColumn;
+    public Button customerTableButton;
 
 
     @Override
@@ -98,7 +98,7 @@ public class AppointmentMenu implements Initializable {
 
         Appointments AP = appointmentTable.getSelectionModel().getSelectedItem();
 
-        DeleteAppointmentCRUD.deleteAppointment(AP.getAppointmentId());
+        AppointmentsCRUD.deleteAppointment(AP.getAppointmentId());
         appointmentTable.setItems(AppointmentsCRUD.getAllAppointments());
 
     }
@@ -108,6 +108,15 @@ public class AppointmentMenu implements Initializable {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Login");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void customerTableButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Customer Menu");
         stage.setScene(scene);
         stage.show();
     }

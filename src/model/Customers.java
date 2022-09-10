@@ -3,8 +3,8 @@ package model;
 public class Customers {
     private int customerId;
     private String customerName;
-    private int phone;
     private String address;
+    private int phone;
     private int postalCode;
     private int divisionId;
 

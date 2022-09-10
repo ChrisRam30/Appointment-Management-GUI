@@ -1,4 +1,4 @@
-package helper;
+/*package helper;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 //this method inserts information into the SQL bench tables
 public abstract class AddAppointmentCRUD {
 
-    public static int insert(String title, String description, String location,
+    public static int inserta(String title, String description, String location,
                              String type, Timestamp startDateTime, Timestamp endDateTime,
                              int customerId, int userId, int contactId) throws SQLException { //indicates what you want inserted
         //String sql = "INSERT INTO APPOINTMENTS (User_Name, Password) VALUES(?, ?)"; //specifies which table
@@ -27,4 +27,4 @@ public abstract class AddAppointmentCRUD {
         return rowsAffected;
     }
 
-}
+}*/

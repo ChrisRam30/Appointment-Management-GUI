@@ -1,8 +1,8 @@
 package controller;
 
 
+import helper.AppointmentsCRUD;
 import helper.JDBC;
-import helper.AddAppointmentCRUD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,16 +39,23 @@ public class AddAppointment implements Initializable {
     public ComboBox<LocalTime> startTimeComboBox;
     public ComboBox<LocalTime> endTimeComboBox;
 
-    public void saveButtonClick(ActionEvent actionEvent) throws SQLException {
+    public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
         Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
         Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(endDateBox.getValue(), endTimeComboBox.getValue()));
 
 
-        int rowsAffected = AddAppointmentCRUD.insert(titleBox.getText(),
+        int rowsAffected = AppointmentsCRUD.insertAppointment(titleBox.getText(),
                 descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
                 starttime, endtime, Integer.parseInt(customerIdBox.getText()), Integer.parseInt(userIdBox.getText()),
                 Integer.parseInt(contactIdBox.getText()));
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Appointment Menu");
+        stage.setScene(scene);
+        stage.show();
 
     }
 
