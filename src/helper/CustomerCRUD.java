@@ -20,8 +20,8 @@ public class CustomerCRUD {
                 int customerId = rs.getInt("Customer_ID");
                 String customerName = rs.getString("Customer_Name");
                 String address = rs.getString("Address");
-                int phone = rs.getInt("Phone");
-                int postalCode = rs.getInt("Postal_Code");
+                String phone = rs.getString("Phone");
+                String postalCode = rs.getString("Postal_Code");
                 int divisionId = rs.getInt("Division_ID");
 
                 Customers c = new Customers(customerId, customerName, phone, address, postalCode, divisionId);

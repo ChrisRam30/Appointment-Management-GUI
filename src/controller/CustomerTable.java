@@ -1,6 +1,5 @@
 package controller;
 
-import helper.AppointmentsCRUD;
 import helper.CustomerCRUD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Appointments;
 import model.Customers;
 
 import java.io.IOException;
@@ -21,7 +19,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CustomerTable implements Initializable {
-    public TableView customerTable;
+    public TableView <Customers> customerTable;
     public TableColumn customerIdColumn;
     public TableColumn customerNameColumn;
     public TableColumn phoneColumn;
@@ -64,7 +62,6 @@ public class CustomerTable implements Initializable {
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
 
         Customers CP = customerTable.getSelectionModel().getSelectedItem();
-
 
         CustomerCRUD.deleteCustomer(CP.getCustomerId());
         customerTable.setItems(CustomerCRUD.getAllCustomers());

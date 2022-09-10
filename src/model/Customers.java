@@ -4,11 +4,11 @@ public class Customers {
     private int customerId;
     private String customerName;
     private String address;
-    private int phone;
-    private int postalCode;
+    private String phone;
+    private String postalCode;
     private int divisionId;
 
-    public Customers(int customerId, String customerName, int phone, String address, int postalCode, int divisionId) {
+    public Customers(int customerId, String customerName, String phone, String address, String postalCode, int divisionId) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.phone = phone;
@@ -33,11 +33,11 @@ public class Customers {
         this.customerName = customerName;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -49,11 +49,11 @@ public class Customers {
         this.address = address;
     }
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
