@@ -53,7 +53,13 @@ public class CustomerTable implements Initializable {
         stage.show();
     }
 
-    public void addCustomerButtonClick(ActionEvent actionEvent) {
+    public void addCustomerButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/addCustomer.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Add Customer");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void modifyCustomerButtonClick(ActionEvent actionEvent) {

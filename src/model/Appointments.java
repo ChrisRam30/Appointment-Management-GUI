@@ -1,5 +1,9 @@
 package model;
 
+import helper.AppointmentsCRUD;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Timestamp;
 
 
@@ -16,7 +20,7 @@ public class Appointments {
     private int customerId;
     private int userId;
 
-    //private static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
 
 
 
@@ -115,11 +119,9 @@ public class Appointments {
         this.userId = userId;
     }
 
-    /*public static ObservableList<Appointments> getAllAppointments() {
-        return allAppointments;
+    @Override
+    public String toString() {
+        return(Integer.toString(getContact()));
     }
 
-    public static void setAllAppointments(ObservableList<Appointments> allAppointments) {
-        Appointments.allAppointments = allAppointments;
-    }*/
 }

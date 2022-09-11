@@ -22,7 +22,7 @@
       <Label layoutX="415.0" layoutY="215.0" text="User ID" />
       <Label layoutX="417.0" layoutY="162.0" text="Location" />
       <Label layoutX="390.0" layoutY="395.0" text="End Time" />
-      <TextField fx:id="appointmentIdBox" layoutX="137.0" layoutY="53.0" prefHeight="25.0" prefWidth="253.0" />
+      <TextField fx:id="appointmentIdBox" editable="false" layoutX="137.0" layoutY="53.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="titleBox" layoutX="137.0" layoutY="107.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="descriptionBox" layoutX="137.0" layoutY="161.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="typeBox" layoutX="137.0" layoutY="214.0" prefHeight="25.0" prefWidth="253.0" />
@@ -38,11 +38,13 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="contactIdBox" layoutX="514.0" layoutY="54.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="customerIdBox" layoutX="514.0" layoutY="108.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="locationBox" layoutX="514.0" layoutY="162.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="userIdBox" layoutX="514.0" layoutY="215.0" prefHeight="25.0" prefWidth="253.0" />
       <ComboBox fx:id="startTimeComboBox" layoutX="145.0" layoutY="388.0" prefWidth="150.0" />
       <ComboBox fx:id="endTimeComboBox" layoutX="491.0" layoutY="388.0" prefWidth="150.0" />
+      <ComboBox fx:id="contactIDComboBox" layoutX="514.0" layoutY="53.0" onAction="#contactIDComboBoxClick" prefHeight="25.0" prefWidth="253.0" />
+      <ComboBox fx:id="customerIdComboBox" layoutX="565.0" layoutY="133.0" onAction="#customerIdComboBoxClick" prefWidth="150.0" />
+      <ComboBox fx:id="userIdComboBox" layoutX="566.0" layoutY="248.0" onAction="#userIdComboBox" prefWidth="150.0" />
    </children>
 </AnchorPane>

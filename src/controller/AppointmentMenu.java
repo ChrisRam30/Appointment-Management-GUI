@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import helper.AppointmentsCRUD;
 import helper.JDBC;
+import javafx.collections.ObservableList;
 import model.Appointments;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -56,12 +57,12 @@ public class AppointmentMenu implements Initializable {
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-        //ObservableList<Appointments> appointmentList = AppointmentsCRUD.getAllAppointments();
-        //for (Appointments a : appointmentList) {
-           // System.out.println(a.getAppointmentId());
-        //}
+
+
+
 
     }
+
 
     public void viewAllButton(ActionEvent actionEvent) {
 

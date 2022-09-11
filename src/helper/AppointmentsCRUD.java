@@ -10,6 +10,7 @@ import model.Appointments;
 
 public class AppointmentsCRUD {
     public static ObservableList<Appointments> getAllAppointments() {
+
         ObservableList<Appointments> aList = FXCollections.observableArrayList();
         try {
             String SQL = "SELECT * FROM APPOINTMENTS;";
@@ -37,6 +38,12 @@ public class AppointmentsCRUD {
         }
         return aList;
     }
+
+    @Override public String toString(){
+        return("Contact_ID");
+    }
+
+
 
     public static int insertAppointment(String title, String description, String location,
                              String type, Timestamp startDateTime, Timestamp endDateTime,

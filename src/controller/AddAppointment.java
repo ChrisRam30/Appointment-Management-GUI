@@ -2,7 +2,7 @@ package controller;
 
 
 import helper.AppointmentsCRUD;
-import helper.JDBC;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,9 +13,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Appointments;
+import model.Customers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -38,35 +41,10 @@ public class AddAppointment implements Initializable {
     public DatePicker endDateBox;
     public ComboBox<LocalTime> startTimeComboBox;
     public ComboBox<LocalTime> endTimeComboBox;
+    public ComboBox<Appointments> contactIDComboBox;
+    public ComboBox customerIdComboBox;
+    public ComboBox userIdComboBox;
 
-    public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
-
-        Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
-        Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(endDateBox.getValue(), endTimeComboBox.getValue()));
-
-
-        int rowsAffected = AppointmentsCRUD.insertAppointment(titleBox.getText(),
-                descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
-                starttime, endtime, Integer.parseInt(customerIdBox.getText()), Integer.parseInt(userIdBox.getText()),
-                Integer.parseInt(contactIdBox.getText()));
-
-        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Appointment Menu");
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Modify Appointment");
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,6 +59,50 @@ public class AddAppointment implements Initializable {
         startTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
         endTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
 
+        contactIDComboBox.setItems(AppointmentsCRUD.getAllAppointments());
+
+        Appointments ContID = contactIDComboBox.getValue();
+
+
     }
 
+
+    public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
+
+        Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
+        Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(endDateBox.getValue(), endTimeComboBox.getValue()));
+
+
+        int rowsAffected = AppointmentsCRUD.insertAppointment(titleBox.getText(),
+                descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
+                starttime, endtime, Integer.parseInt(customerIdBox.getText()), Integer.parseInt(userIdBox.getText()),
+                Integer.parseInt(String.valueOf(contactIDComboBox.getValue())));
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Appointment Menu");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Appointment Menu");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void contactIDComboBoxClick(ActionEvent actionEvent) {
+
+    }
+
+    public void customerIdComboBoxClick(ActionEvent actionEvent) {
+    }
+
+    public void userIdComboBox(ActionEvent actionEvent) {
+    }
 }
