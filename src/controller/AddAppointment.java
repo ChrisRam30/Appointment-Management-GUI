@@ -42,7 +42,7 @@ public class AddAppointment implements Initializable {
     public ComboBox<LocalTime> startTimeComboBox;
     public ComboBox<LocalTime> endTimeComboBox;
     public ComboBox<Appointments> contactIDComboBox;
-    public ComboBox customerIdComboBox;
+    public ComboBox<Appointments> customerIdComboBox;
     public ComboBox userIdComboBox;
 
 
@@ -60,6 +60,8 @@ public class AddAppointment implements Initializable {
         endTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
 
         contactIDComboBox.setItems(AppointmentsCRUD.getAllAppointments());
+        customerIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
+        userIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
 
         Appointments ContID = contactIDComboBox.getValue();
 
@@ -75,7 +77,8 @@ public class AddAppointment implements Initializable {
 
         int rowsAffected = AppointmentsCRUD.insertAppointment(titleBox.getText(),
                 descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
-                starttime, endtime, Integer.parseInt(customerIdBox.getText()), Integer.parseInt(userIdBox.getText()),
+                starttime, endtime, Integer.parseInt(String.valueOf(customerIdComboBox.getValue())),
+                Integer.parseInt(String.valueOf(userIdComboBox.getValue())),
                 Integer.parseInt(String.valueOf(contactIDComboBox.getValue())));
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
