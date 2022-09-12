@@ -1,6 +1,7 @@
 package controller;
 
 import helper.AppointmentsCRUD;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,7 +40,7 @@ public class modifyAppointment implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        LocalTime start = LocalTime.of(8,0);
+       LocalTime start = LocalTime.of(8,0);
         LocalTime end = LocalTime.of(22,0);
 
         while(start.isBefore(end.plusSeconds(1))) {
@@ -61,18 +62,18 @@ public class modifyAppointment implements Initializable {
 
     public void recieveAppointmentData(Appointments data) {
 
-        Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue()));
-        Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue()));
 
         modifyAppointmentIdBox.setText(String.valueOf(data.getAppointmentId()));
         modifyTitleBox.setText(data.getTitle());
         modifyLocationBox.setText(data.getLocation());
         modifyTypeBox.setText(data.getType());
-        starttime.setTime(data.getStartDateTime());
-        endtime.setTime(data.getStartDateTime());
-        modifyCustomerIdComboBox.setItems(String.valueOf(data.getCustomerId()));
+        modifyStartTimeComboBox.setValue((data.getStartDateTime().toLocalDateTime().toLocalTime()));
+        modifyStartDateBox.setValue(data.getStartDateTime().toLocalDateTime().toLocalDate());
+        modifyEndTimeComboBox.setValue((data.getEndDateTime().toLocalDateTime().toLocalTime()));
+        modifyEndDateBox.setValue(data.getStartDateTime().toLocalDateTime().toLocalDate());
+        /*modifyCustomerIdComboBox.setItems(String.valueOf(data.getCustomerId()));
         modifyUserIdComboBox.setItems(String.valueOf(data.getUserId()));
-        modifyContactIDComboBox.setItems(String.valueOf(data.getContact()));
+        modifyContactIDComboBox.setItems(String.valueOf(data.getContact()));*/
     }
 
     public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException {
