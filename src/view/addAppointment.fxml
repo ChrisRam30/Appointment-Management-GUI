@@ -22,12 +22,12 @@
       <Label layoutX="415.0" layoutY="215.0" text="User ID" />
       <Label layoutX="417.0" layoutY="162.0" text="Location" />
       <Label layoutX="390.0" layoutY="395.0" text="End Time" />
-      <TextField fx:id="appointmentIdBox" editable="false" layoutX="137.0" layoutY="53.0" prefHeight="25.0" prefWidth="253.0" />
+      <TextField fx:id="appointmentIdBox" disable="true" editable="false" layoutX="137.0" layoutY="53.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="titleBox" layoutX="137.0" layoutY="107.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="descriptionBox" layoutX="137.0" layoutY="161.0" prefHeight="25.0" prefWidth="253.0" />
       <TextField fx:id="typeBox" layoutX="137.0" layoutY="214.0" prefHeight="25.0" prefWidth="253.0" />
       <DatePicker fx:id="startDateBox" layoutX="145.0" layoutY="341.0" prefHeight="25.0" prefWidth="149.0" />
-      <DatePicker fx:id="endDateBox" layoutX="491.0" layoutY="341.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="endDateBox" disable="true" layoutX="491.0" layoutY="341.0" prefHeight="25.0" prefWidth="149.0" />
       <Button fx:id="saveButtonBox" layoutX="250.0" layoutY="480.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="39.0" prefWidth="108.0" text="Save">
          <font>
             <Font size="18.0" />

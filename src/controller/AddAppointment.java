@@ -72,12 +72,11 @@ public class AddAppointment implements Initializable {
     public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
         Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
-        Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(endDateBox.getValue(), endTimeComboBox.getValue()));
+        Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));
 
-
-        int rowsAffected = AppointmentsCRUD.insertAppointment(titleBox.getText(),
+        AppointmentsCRUD.insertAppointment(titleBox.getText(),
                 descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
-                starttime, endtime, Integer.parseInt(String.valueOf(customerIdComboBox.getValue())),
+                starttime,endtime, Integer.parseInt(String.valueOf(customerIdComboBox.getValue())),
                 Integer.parseInt(String.valueOf(userIdComboBox.getValue())),
                 Integer.parseInt(String.valueOf(contactIDComboBox.getValue())));
 

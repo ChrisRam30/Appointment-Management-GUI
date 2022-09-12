@@ -87,11 +87,18 @@ public class AppointmentMenu implements Initializable {
     }
 
     public void modifyAppointmentClick(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
         Parent root = FXMLLoader.load(getClass().getResource("/view/modifyAppointment.fxml"));
+        loader.load();
+
+        modifyAppointment modAppController = loader.getController();
+        modAppController.recieveAppointmentData(appointmentTable.getSelectionModel().getSelectedItem());
+
+
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        Parent scene = loader.getRoot();
         stage.setTitle("Modify Appointment");
-        stage.setScene(scene);
+        stage.setScene(new Scene(scene));
         stage.show();
     }
 
