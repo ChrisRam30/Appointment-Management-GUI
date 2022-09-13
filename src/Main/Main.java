@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.time.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.TimeZone;
 
 public class Main extends Application {
@@ -22,6 +24,11 @@ public class Main extends Application {
 
 
     public static void main(String[] args)  {
+
+        ResourceBundle rb = ResourceBundle.getBundle("Lang/Lang_fr", Locale.getDefault());
+
+        if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en"))
+            System.out.println(rb.getString("userName"));
 
         //this will filter out time zones and only show america time zones
         //ZoneId.getAvailableZoneIds().stream().filter(c -> c.contains("America")).forEach(System.out::println);

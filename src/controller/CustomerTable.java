@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Countries;
 import model.Customers;
 
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class CustomerTable implements Initializable {
     public Button addCustomerButton;
     public Button modifyCustomerButton;
     public Button deleteCustomerButton;
+    public TableColumn countryColumn;
+    public TableColumn stateProvinceColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
