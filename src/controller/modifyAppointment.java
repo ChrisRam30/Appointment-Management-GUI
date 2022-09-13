@@ -34,8 +34,8 @@ public class modifyAppointment implements Initializable {
     public Button modifyCancelButton;
     public ComboBox<LocalTime> modifyStartTimeComboBox;
     public ComboBox<LocalTime> modifyEndTimeComboBox;
-    public ComboBox<Appointments> modifyContactIDComboBox;
-    public ComboBox<Appointments> modifyCustomerIdComboBox;
+    public ComboBox modifyContactIDComboBox;
+    public ComboBox modifyCustomerIdComboBox;
     public ComboBox modifyUserIdComboBox;
 
     @Override
@@ -55,8 +55,6 @@ public class modifyAppointment implements Initializable {
         modifyCustomerIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
         modifyUserIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
 
-        Appointments ContID = modifyContactIDComboBox.getValue();
-
 
     }
 
@@ -67,13 +65,14 @@ public class modifyAppointment implements Initializable {
         modifyTitleBox.setText(data.getTitle());
         modifyLocationBox.setText(data.getLocation());
         modifyTypeBox.setText(data.getType());
+        modifyDescriptionBox.setText(data.getDescription());
         modifyStartTimeComboBox.setValue((data.getStartDateTime().toLocalDateTime().toLocalTime()));
         modifyStartDateBox.setValue(data.getStartDateTime().toLocalDateTime().toLocalDate());
         modifyEndTimeComboBox.setValue((data.getEndDateTime().toLocalDateTime().toLocalTime()));
         modifyEndDateBox.setValue(data.getStartDateTime().toLocalDateTime().toLocalDate());
-        /*modifyCustomerIdComboBox.setItems(String.valueOf(data.getCustomerId()));
-        modifyUserIdComboBox.setItems(String.valueOf(data.getUserId()));
-        modifyContactIDComboBox.setItems(String.valueOf(data.getContact()));*/
+        modifyCustomerIdComboBox.setValue(data.getCustomerId());
+        modifyUserIdComboBox.setValue(data.getUserId());
+        modifyContactIDComboBox.setValue(data.getContact());
     }
 
     public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException {
