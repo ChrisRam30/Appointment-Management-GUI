@@ -44,6 +44,8 @@ public class CustomerTable implements Initializable {
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         postalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         divisionIdColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+
 
     }
 

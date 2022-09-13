@@ -8,25 +8,6 @@ import model.Countries;
 import model.Customers;
 
 public class CustomerCRUD {
-    /*public static ObservableList<Countries> getAllCountries() {
-        ObservableList<Countries> cList = FXCollections.observableArrayList();
-        try {
-            String SQL = "SELECT * FROM Countries;";
-            PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery(SQL);
-
-            while (rs.next()) {
-                int countryId = rs.getInt("Country_ID");
-                String countryName = rs.getString("Country");
-
-                Countries c = new Countries(countryId, countryName);
-                cList.add(c);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return cList;
-    }*/
 
     public static ObservableList<Customers> getAllCustomers() {
         ObservableList<Customers> cList = FXCollections.observableArrayList();

@@ -77,14 +77,15 @@ public class modifyAppointment implements Initializable {
 
     public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException {
 
-        Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue()));
-        Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue()));
+        Timestamp startTime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue()));
+        Timestamp endTime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue()));
 
         AppointmentsCRUD.modifyAppointment(modifyTitleBox.getText(),
                 modifyDescriptionBox.getText(), modifyLocationBox.getText(), modifyTypeBox.getText(),
-                starttime,endtime, Integer.parseInt(String.valueOf(modifyCustomerIdComboBox.getValue())),
+                startTime,endTime, Integer.parseInt(String.valueOf(modifyCustomerIdComboBox.getValue())),
                 Integer.parseInt(String.valueOf(modifyUserIdComboBox.getValue())),
-                Integer.parseInt(String.valueOf(modifyCustomerIdComboBox.getValue())));
+                Integer.parseInt(String.valueOf(modifyCustomerIdComboBox.getValue())),
+                Integer.parseInt(modifyAppointmentIdBox.getText()));
 
 
     }

@@ -79,9 +79,9 @@ public class AppointmentsCRUD {
 
     public static int modifyAppointment(String title, String description, String location,
                                         String type, Timestamp startDateTime, Timestamp endDateTime,
-                                        int customerId, int userId, int contactId) throws SQLException { //indicates what you want inserted
+                                        int customerId, int userId, int contactId, int appointmentId) throws SQLException { //indicates what you want inserted
         //String sql = "INSERT INTO APPOINTMENTS (User_Name, Password) VALUES(?, ?)"; //specifies which table
-        String sql = "UPDATE APPOINTMENTS SET Title = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_Id =?, Contact_ID =? WHERE Appointment_ID = ? ";
+        String sql = "UPDATE APPOINTMENTS SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_Id =?, Contact_ID =? WHERE Appointment_ID = ? ";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, title);
         ps.setString(2, description);
@@ -92,6 +92,7 @@ public class AppointmentsCRUD {
         ps.setInt(7, customerId);
         ps.setInt(8, userId);
         ps.setInt(9, contactId);
+        ps.setInt(10, appointmentId);
         int rowsAffected = ps.executeUpdate(); //required to initiate in main
         return rowsAffected;
     }

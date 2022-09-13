@@ -32,7 +32,6 @@ public class Login implements Initializable {
     public ToggleGroup langRadiobuttonGroup;
     public Label timeZoneLabel;
     public Label languageLabel;
-    //private ResourceBundle myBundle = ResourceBundle.getBundle("Bundle/Lang");
 
     @Override
 
