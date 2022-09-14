@@ -32,7 +32,6 @@ public class CountriesCRUD {
             String SQL = "SELECT C.* FROM Countries AS C INNER JOIN First_Level_Divisions AS D ON C.COUNTRY_ID = D.COUNTRY_ID AND D.DIVISION_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
             ps.setInt(1,divisionId);
-            System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

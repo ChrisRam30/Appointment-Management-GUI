@@ -45,6 +45,7 @@ public class CustomerTable implements Initializable {
         postalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         divisionIdColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        stateProvinceColumn.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
 
 
     }

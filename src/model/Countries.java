@@ -1,5 +1,7 @@
 package model;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+
 public class Countries {
     private int countryId;
     private String countryName;
@@ -23,5 +25,10 @@ public class Countries {
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
+    }
+
+    @Override
+    public String toString() {
+        return(getCountryName());
     }
 }

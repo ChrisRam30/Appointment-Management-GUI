@@ -4,9 +4,9 @@ public class Divisions {
 
     private int divisionId;
     private String divisionName;
-    private String countryId;
+    private int countryId;
 
-    public Divisions(int divisionId, String divisionName, String countryId) {
+    public Divisions(int divisionId, String divisionName, int countryId) {
         this.divisionId = divisionId;
         this.divisionName = divisionName;
         this.countryId = countryId;
@@ -28,11 +28,16 @@ public class Divisions {
         this.divisionName = divisionName;
     }
 
-    public String getCountryId() {
+    public int getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(String countryId) {
+    public void setCountryId(int countryId) {
         this.countryId = countryId;
+    }
+
+    @Override
+    public String toString() {
+        return(getDivisionName());
     }
 }

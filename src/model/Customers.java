@@ -1,6 +1,7 @@
 package model;
 
 import helper.CountriesCRUD;
+import helper.DivisionCRUD;
 
 public class Customers {
     private int customerId;
@@ -72,5 +73,8 @@ public class Customers {
     }
     public Countries getCountry() {
         return CountriesCRUD.getCountryByDivision(divisionId);
+    }
+
+    public Divisions getDivisionName() { return DivisionCRUD.getDivisionByCustomerId(divisionId);
     }
 }

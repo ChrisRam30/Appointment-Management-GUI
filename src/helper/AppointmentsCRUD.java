@@ -48,7 +48,6 @@ public class AppointmentsCRUD {
     public static int insertAppointment(String title, String description, String location,
                              String type, Timestamp startDateTime, Timestamp endDateTime,
                              int customerId, int userId, int contactId) throws SQLException { //indicates what you want inserted
-        //String sql = "INSERT INTO APPOINTMENTS (User_Name, Password) VALUES(?, ?)"; //specifies which table
         String sql = "INSERT INTO APPOINTMENTS (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, title);
@@ -80,7 +79,6 @@ public class AppointmentsCRUD {
     public static int modifyAppointment(String title, String description, String location,
                                         String type, Timestamp startDateTime, Timestamp endDateTime,
                                         int customerId, int userId, int contactId, int appointmentId) throws SQLException { //indicates what you want inserted
-        //String sql = "INSERT INTO APPOINTMENTS (User_Name, Password) VALUES(?, ?)"; //specifies which table
         String sql = "UPDATE APPOINTMENTS SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Customer_ID = ?, User_Id =?, Contact_ID =? WHERE Appointment_ID = ? ";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, title);

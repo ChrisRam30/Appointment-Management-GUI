@@ -58,4 +58,5 @@ public class CustomerCRUD {
         int rowsAffected = ps.executeUpdate(); //required to initiate in main
         return rowsAffected;
     }
+
 }
