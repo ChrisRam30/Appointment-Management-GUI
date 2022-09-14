@@ -98,7 +98,24 @@ public class AddAppointment implements Initializable {
         stage.show();
     }
 
+    private int customerId = 1;
+
     public void contactIDComboBoxClick(ActionEvent actionEvent) {
+        /*int partToChoose = -1;
+
+        try {
+            partToChoose = Integer.parseInt(customerIdBox.getText());
+            if(partToChoose <==0 || partToChoose >= customerId)
+                return;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        for(Appointments c : contactIDComboBox.getItems()) {
+            if(partToChoose == c.getContact()) {
+                contactIDComboBox.setValue(c);
+                break;
+            }
+        }*/
 
     }
 

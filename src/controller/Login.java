@@ -39,7 +39,9 @@ public class Login implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         timeZone.setText(ZoneId.systemDefault().toString());
 
-        //System.out.println(myBundle.getString("TEST1"));
+        ResourceBundle rb = ResourceBundle.getBundle("Lang", Locale.getDefault());
+
+        if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en"));
 
     }
 

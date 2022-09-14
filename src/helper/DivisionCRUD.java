@@ -10,9 +10,9 @@ public class DivisionCRUD {
     public static ObservableList<Divisions> getAllDivisions() {
         ObservableList<Divisions> dList = FXCollections.observableArrayList();
         try {
-            String SQL = "SELECT * FROM DIVISIONS;";
+            String SQL = "SELECT * FROM FIRST_LEVEL_DIVISIONS;";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery(SQL);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 int divisionId = rs.getInt("Division_ID");
@@ -47,5 +47,26 @@ public class DivisionCRUD {
             throwables.printStackTrace();
         }
         return null;
+    }
+    public static ObservableList<Divisions> getCountryDivisions(int countryId) {
+        ObservableList<Divisions> dList = FXCollections.observableArrayList();
+        try {
+            String SQL = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE COUNTRY_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
+            ps.setInt(1, countryId);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int divisionId = rs.getInt("Division_ID");
+                String divisionName = rs.getString("Division");
+
+                Divisions d = new Divisions(divisionId, divisionName, countryId);
+                dList.add(d);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return dList;
     }
 }

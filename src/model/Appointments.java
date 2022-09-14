@@ -121,7 +121,9 @@ public class Appointments {
 
     @Override
     public String toString() {
+
         return(Integer.toString(getContact()));
+
     }
 
 }

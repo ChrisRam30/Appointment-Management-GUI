@@ -27,10 +27,10 @@ public class Main extends Application {
 
     public static void main(String[] args)  {
 
-        ResourceBundle rb = ResourceBundle.getBundle("Lang", Locale.getDefault());
+        /*ResourceBundle rb = ResourceBundle.getBundle("Lang", Locale.getDefault());
 
         if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en"))
-            System.out.println(rb.getString("userName"));
+            System.out.println(rb.getString("userName"));*/
         
 
         JDBC.openConnection();
