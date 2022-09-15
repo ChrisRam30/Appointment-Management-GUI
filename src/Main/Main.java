@@ -27,11 +27,7 @@ public class Main extends Application {
 
     public static void main(String[] args)  {
 
-        /*ResourceBundle rb = ResourceBundle.getBundle("Lang", Locale.getDefault());
-
-        if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en"))
-            System.out.println(rb.getString("userName"));*/
-        
+        //Locale.setDefault(new Locale("fr", "FR")); //used to check if languages are auto changing
 
         JDBC.openConnection();
 

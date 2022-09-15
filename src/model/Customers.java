@@ -71,6 +71,7 @@ public class Customers {
     public Divisions getDivision() {
         return null;
     }
+
     public Countries getCountry() {
         return CountriesCRUD.getCountryByDivision(divisionId);
     }

@@ -47,16 +47,15 @@ public class CustomerCRUD {
         }
     }
 
-    public static int insertCustomer(String customerName, String address, int postalCode,
-                                        int phone, String country, String stateProvince) throws SQLException {
-        String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Country, Division) VALUES(?, ?, ?, ?, ?, ?)";
+    public static int insertCustomer(String customerName, String address, String postalCode,
+                                        String phone, int divisionId) throws SQLException {
+        String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, customerName);
         ps.setString(2, address);
-        ps.setInt(3, postalCode);
-        ps.setInt(4, phone);
-        ps.setString(5, country);
-        ps.setString(6, stateProvince);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setInt(5, divisionId);
         int rowsAffected = ps.executeUpdate(); //required to initiate in main
         return rowsAffected;
     }

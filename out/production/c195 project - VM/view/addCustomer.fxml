@@ -16,7 +16,7 @@
       <Label layoutX="427.0" layoutY="33.0" text="Postal Code" />
       <Label layoutX="427.0" layoutY="79.0" text="Phone Number" />
       <Label layoutX="429.0" layoutY="177.0" text="State/Province" />
-      <TextField fx:id="customerIdBox" layoutX="198.0" layoutY="29.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField fx:id="customerIdBox" disable="true" layoutX="198.0" layoutY="29.0" prefHeight="25.0" prefWidth="162.0" />
       <TextField fx:id="customerNameBox" layoutX="198.0" layoutY="75.0" prefHeight="25.0" prefWidth="162.0" />
       <TextField fx:id="addressBox" layoutX="198.0" layoutY="125.0" prefHeight="25.0" prefWidth="162.0" />
       <TextField fx:id="postalCodeBox" layoutX="552.0" layoutY="29.0" prefHeight="25.0" prefWidth="162.0" />
@@ -24,7 +24,5 @@
       <ComboBox fx:id="countryComboBox" layoutX="552.0" layoutY="122.0" onAction="#countryComboBoxClick" prefHeight="25.0" prefWidth="162.0" />
       <Label layoutX="429.0" layoutY="129.0" text="Country" />
       <ComboBox fx:id="stateProvinceComboBox" layoutX="552.0" layoutY="173.0" prefHeight="25.0" prefWidth="162.0" />
-      <TextField fx:id="divisionIdBox" disable="true" layoutX="198.0" layoutY="173.0" prefHeight="25.0" prefWidth="162.0" />
-      <Label layoutX="60.0" layoutY="177.0" prefHeight="17.0" prefWidth="77.0" text="Diviions ID" />
    </children>
 </AnchorPane>

@@ -32,16 +32,16 @@ public class Login implements Initializable {
     public ToggleGroup langRadiobuttonGroup;
     public Label timeZoneLabel;
     public Label languageLabel;
+    ResourceBundle rb = ResourceBundle.getBundle("Lang", Locale.getDefault());
+
 
     @Override
-
-
     public void initialize(URL url, ResourceBundle resourceBundle) {
         timeZone.setText(ZoneId.systemDefault().toString());
 
-        ResourceBundle rb = ResourceBundle.getBundle("Lang", Locale.getDefault());
-
-        if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en"));
+        if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+            userNameLabel.setText(rb.getString("userName"));
+        }
 
     }
 
@@ -92,6 +92,7 @@ public class Login implements Initializable {
             }
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
+            //Locale.setDefault(new Locale("en", "US")); //used to check if languages are auto changing
             System.exit(0);
         }
     }

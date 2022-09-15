@@ -43,8 +43,8 @@ public class AddCustomer implements Initializable {
 
     public void saveButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
         CustomerCRUD.insertCustomer(customerNameBox.getText(), addressBox.getText(),
-                Integer.parseInt(postalCodeBox.getText()), Integer.parseInt(phoneBox.getText()),
-                String.valueOf(countryComboBox.getValue()), String.valueOf(stateProvinceComboBox.getValue()));
+                postalCodeBox.getText(), phoneBox.getText(),
+               stateProvinceComboBox.getValue().getDivisionId());
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
