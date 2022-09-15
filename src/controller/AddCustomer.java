@@ -20,6 +20,7 @@ import model.Divisions;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AddCustomer implements Initializable {
@@ -32,6 +33,7 @@ public class AddCustomer implements Initializable {
     public TextField phoneBox;
     public ComboBox<Divisions> stateProvinceComboBox;
     public ComboBox<Countries> countryComboBox;
+    public TextField divisionIdBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,18 +41,17 @@ public class AddCustomer implements Initializable {
 
     }
 
-    public void saveButtonClick(ActionEvent actionEvent) throws IOException {
-        /*CustomerCRUD.insertCustomer(customerNameBox.getText(), addressBox.getText(),
+    public void saveButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
+        CustomerCRUD.insertCustomer(customerNameBox.getText(), addressBox.getText(),
                 Integer.parseInt(postalCodeBox.getText()), Integer.parseInt(phoneBox.getText()),
-                Integer.parseInt(String.valueOf(stateProvinceComboBox.getValue())),
-                Integer.parseInt(String.valueOf(countryComboBox.getValue())));
+                String.valueOf(countryComboBox.getValue()), String.valueOf(stateProvinceComboBox.getValue()));
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Appointment Menu");
         stage.setScene(scene);
-        stage.show();*/
+        stage.show();
     }
 
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
@@ -64,7 +65,6 @@ public class AddCustomer implements Initializable {
 
     public void countryComboBoxClick(ActionEvent actionEvent) {
         int countryId = countryComboBox.getValue().getCountryId();
-        System.out.println("Country ID = " + countryId);
         ObservableList<Divisions> list = DivisionCRUD.getCountryDivisions(countryId);
 
         stateProvinceComboBox.setItems(DivisionCRUD.getCountryDivisions(countryId));

@@ -10,11 +10,11 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class ReportsCRUD {
-    public static ObservableList<Appointments> getAllAppointmentsByMonth() {
+    public static ObservableList<Appointments> getContactAppointments() {
 
-        ObservableList<Appointments> aList = FXCollections.observableArrayList();
+        ObservableList<Appointments> cList = FXCollections.observableArrayList();
         try {
-            String SQL = "SELECT * FROM APPOINTMENTS;";
+            String SQL = "SELECT * FROM APPOINTMENTS WHERE CONTACT_ID = ?;";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery(SQL);
 
@@ -32,11 +32,12 @@ public class ReportsCRUD {
 
                 Appointments a = new Appointments(appointmentId, title, description, location, contact, type, startDateTime,
                         endDateTime, customerId, UserId);
-                aList.add(a);
+                cList.add(a);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return aList;
+        return cList;
     }
+
 }

@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import helper.AppointmentsCRUD;
-import helper.JDBC;
-import javafx.collections.ObservableList;
 import model.Appointments;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -69,7 +67,7 @@ public class AppointmentMenu implements Initializable {
     }
 
     public void reportsClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/reports.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/reportsMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Reports");

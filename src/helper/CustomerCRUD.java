@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Countries;
 import model.Customers;
+import model.Divisions;
 
 public class CustomerCRUD {
 
@@ -47,14 +48,15 @@ public class CustomerCRUD {
     }
 
     public static int insertCustomer(String customerName, String address, int postalCode,
-                                        int phone, int divisionId) throws SQLException {
-        String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
+                                        int phone, String country, String stateProvince) throws SQLException {
+        String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Country, Division) VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, customerName);
         ps.setString(2, address);
         ps.setInt(3, postalCode);
         ps.setInt(4, phone);
-        ps.setInt(5, divisionId);
+        ps.setString(5, country);
+        ps.setString(6, stateProvince);
         int rowsAffected = ps.executeUpdate(); //required to initiate in main
         return rowsAffected;
     }
