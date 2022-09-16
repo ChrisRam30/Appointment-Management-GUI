@@ -27,11 +27,9 @@ public class Login implements Initializable {
     public Button Close;
     public Label userNameLabel;
     public Label PasswordLabel;
-    public RadioButton englishRadioButton;
-    public RadioButton frenchRadioButton;
-    public ToggleGroup langRadiobuttonGroup;
     public Label timeZoneLabel;
     public Label languageLabel;
+    public Label displayLanguage;
     ResourceBundle rb = ResourceBundle.getBundle("Lang", Locale.getDefault());
 
 
@@ -41,6 +39,13 @@ public class Login implements Initializable {
 
         if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
             userNameLabel.setText(rb.getString("userName"));
+            PasswordLabel.setText(rb.getString("passwordLabel"));
+            loginButton.setText(rb.getString("loginButton"));
+            languageLabel.setText(rb.getString("languageLabel"));
+            timeZoneLabel.setText(rb.getString("timeZoneLabel"));
+            Close.setText(rb.getString("Close"));
+            displayLanguage.setText(rb.getString("displayLang"));
+
         }
 
     }
@@ -64,12 +69,8 @@ public class Login implements Initializable {
                 stage.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    if (frenchRadioButton.isSelected()) {
-                        alert.setContentText("Identifiant et/ou mot de passe incorrect, veuillez réessaye.");
-                    } else {
-                        if(englishRadioButton.isSelected()) {
-                            alert.setContentText("Incorrect Login and/or Password, please try again.");
-                        }
+                if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+                        alert.setContentText(rb.getString("incorrectLogin"));
                     }
                     Optional<ButtonType> result = alert.showAndWait();
                 }
@@ -83,40 +84,13 @@ public class Login implements Initializable {
 
     public void closeButton(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        if (englishRadioButton.isSelected()) {
-            alert.setContentText("Would you like to Exit?");
-         } else {
-            if (frenchRadioButton.isSelected()) {
-                alert.setContentText("Voulez-vous sortir ?");
-                }
+        if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+            alert.setContentText(rb.getString("exit"));
             }
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            //Locale.setDefault(new Locale("en", "US")); //used to check if languages are auto changing
+            Locale.setDefault(new Locale("en", "US")); //used to check if languages are auto changing
             System.exit(0);
-        }
-    }
-
-    public void englishRadioClick(ActionEvent actionEvent) {
-        if (englishRadioButton.isSelected()) {
-            userNameLabel.setText("UserName");
-            PasswordLabel.setText("Password");
-            loginButton.setText("Login");
-            languageLabel.setText("Language");
-            timeZoneLabel.setText("Time Zone");
-            Close.setText("Close");
-
-        }
-    }
-
-    public void frenchRadioClick(ActionEvent actionEvent) {
-        if (frenchRadioButton.isSelected()) {
-            userNameLabel.setText("Nom d'utilisateur");
-            PasswordLabel.setText("Mot de passe");
-            loginButton.setText("Connexion");
-            languageLabel.setText("Langue");
-            timeZoneLabel.setText("Fuseau Horaire");
-            Close.setText("Proche");
         }
     }
 }

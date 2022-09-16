@@ -46,10 +46,10 @@ public class AddCustomer implements Initializable {
                 postalCodeBox.getText(), phoneBox.getText(),
                stateProvinceComboBox.getValue().getDivisionId());
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        stage.setTitle("Appointment Menu");
+        stage.setTitle("Customer Menu");
         stage.setScene(scene);
         stage.show();
     }

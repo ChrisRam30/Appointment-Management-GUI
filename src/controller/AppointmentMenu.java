@@ -6,15 +6,13 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import helper.AppointmentsCRUD;
+import javafx.scene.control.*;
 import model.Appointments;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -37,6 +35,10 @@ public class AppointmentMenu implements Initializable {
     public Button logoutButton;
     public TableColumn appointmentIdColumn;
     public Button customerTableButton;
+    public RadioButton viewAllRadioButton;
+    public ToggleGroup viewRbGroup;
+    public RadioButton viewByWeekRadioButton;
+    public RadioButton viewByMonthRadioButton;
 
 
     @Override
@@ -125,5 +127,16 @@ public class AppointmentMenu implements Initializable {
         stage.setTitle("Customer Menu");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void viewAllRadioButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void viewByWeekRadioButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void viewByMonthRadioButtonClck(ActionEvent actionEvent) {
+        appointmentTable.setItems(AppointmentsCRUD.getAppointsmentsByMonth());
+
     }
 }

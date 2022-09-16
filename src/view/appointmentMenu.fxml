@@ -4,13 +4,17 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="1243.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentMenu">
    <children>
-      <RadioButton layoutX="580.0" layoutY="19.0" mnemonicParsing="false" onAction="#viewAllButton" text="View all" />
-      <RadioButton layoutX="461.0" layoutY="19.0" mnemonicParsing="false" text="View by Week" />
-      <RadioButton layoutX="332.0" layoutY="19.0" mnemonicParsing="false" text="View by Month" />
+      <RadioButton fx:id="viewAllRadioButton" layoutX="251.0" layoutY="19.0" mnemonicParsing="false" onAction="#viewAllRadioButtonClick" selected="true" text="View all">
+         <toggleGroup>
+            <ToggleGroup fx:id="viewRbGroup" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="viewByWeekRadioButton" layoutX="461.0" layoutY="19.0" mnemonicParsing="false" onAction="#viewByWeekRadioButtonClick" text="View by Week" toggleGroup="$viewRbGroup" />
+      <RadioButton fx:id="viewByMonthRadioButton" layoutX="332.0" layoutY="19.0" mnemonicParsing="false" onAction="#viewByMonthRadioButtonClck" text="View by Month" toggleGroup="$viewRbGroup" />
       <Button fx:id="reportsButton" layoutX="737.0" layoutY="481.0" mnemonicParsing="false" onAction="#reportsClick" prefHeight="25.0" prefWidth="124.0" text="Reports" />
       <Button fx:id="addAppointmentButton" layoutX="30.0" layoutY="481.0" mnemonicParsing="false" onAction="#addAppointmentClick" text="Add appointment" />
       <Button fx:id="modifyAppointmentButton" layoutX="176.0" layoutY="481.0" mnemonicParsing="false" onAction="#modifyAppointmentClick" text="Modify Appointment" />
