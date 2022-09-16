@@ -3,16 +3,22 @@ package controller;
 import helper.AppointmentsCRUD;
 import helper.CountriesCRUD;
 import helper.CustomerCRUD;
+import helper.DivisionCRUD;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.Appointments;
 import model.Countries;
 import model.Customers;
 import model.Divisions;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -36,24 +42,34 @@ public class ModifyCustomer implements Initializable {
 
     }
 
-    public void recieveCustomerData(Customers data) {
+    public void receiveCustomerData(Customers data) {
 
         customerIdBox.setText(String.valueOf(data.getCustomerId()));
         customerNameBox.setText(data.getCustomerName());
         addressBox.setText(data.getAddress());
         postalCodeBox.setText(data.getPostalCode());
         phoneBox.setText(data.getPhone());
-        //stateProvinceComboBox.setValue(data.getDivisionId());
+        Countries c = CountriesCRUD.getCountryByDivision(data.getDivisionId());
+        countryComboBox.setValue(c);
+        stateProvinceComboBox.setItems(DivisionCRUD.getCountryDivisions(c.getCountryId()));
+        Divisions d = DivisionCRUD.getDivision(data.getDivisionId());
+        stateProvinceComboBox.setValue(d);
 
     }
 
     public void saveButtonClick(ActionEvent actionEvent) throws SQLException {
         CustomerCRUD.modifyCustomer(customerNameBox.getText(),
                 addressBox.getText(), postalCodeBox.getText(), phoneBox.getText(),
-                Integer.parseInt(String.valueOf(stateProvinceComboBox.getValue())));
+                stateProvinceComboBox.getValue().getDivisionId(), Integer.parseInt(customerIdBox.getText()));
     }
 
-    public void cancelButtonClick(ActionEvent actionEvent) {
+    public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Customer Menu");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void countryComboBoxClick(ActionEvent actionEvent) {

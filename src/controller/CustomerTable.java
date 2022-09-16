@@ -74,11 +74,10 @@ public class CustomerTable implements Initializable {
 
     public void modifyCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        //Parent root = FXMLLoader.load(getClass().getResource("/view/modifyAppointment.fxml"));
         loader.setLocation(getClass().getResource("/view/modifyCustomer.fxml"));
         loader.load();
         ModifyCustomer modAppController = loader.getController();
-        modAppController.recieveCustomerData(customerTable.getSelectionModel().getSelectedItem());
+        modAppController.receiveCustomerData(customerTable.getSelectionModel().getSelectedItem());
 
 
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

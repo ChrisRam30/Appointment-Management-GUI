@@ -78,8 +78,8 @@ public class AddAppointment implements Initializable {
 
         AppointmentsCRUD.insertAppointment(titleBox.getText(),
                 descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
-                starttime,endtime, Integer.parseInt(String.valueOf(customerIdComboBox.getValue())),
-                Integer.parseInt(String.valueOf(userIdComboBox.getValue())), //what is going on here?! not working when I am adding appointment now
+                starttime,endtime, customerIdComboBox.getValue().getCustomerId(),
+                Integer.parseInt(String.valueOf(userIdComboBox.getValue())),
                 Integer.parseInt(String.valueOf(contactIDComboBox.getValue())));
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));

@@ -38,4 +38,9 @@ public class Contacts {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return(getContactName());
+    }
+
 }
