@@ -1,6 +1,8 @@
 package controller;
 
+import helper.AppointmentsCRUD;
 import helper.CustomerCRUD;
+import helper.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,11 +13,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.Countries;
 import model.Customers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -68,7 +72,20 @@ public class CustomerTable implements Initializable {
         stage.show();
     }
 
-    public void modifyCustomerButtonClick(ActionEvent actionEvent) {
+    public void modifyCustomerButtonClick(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        //Parent root = FXMLLoader.load(getClass().getResource("/view/modifyAppointment.fxml"));
+        loader.setLocation(getClass().getResource("/view/modifyCustomer.fxml"));
+        loader.load();
+        ModifyCustomer modAppController = loader.getController();
+        modAppController.recieveCustomerData(customerTable.getSelectionModel().getSelectedItem());
+
+
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setTitle("Modify Customer");
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {

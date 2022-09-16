@@ -33,7 +33,6 @@ public class AddCustomer implements Initializable {
     public TextField phoneBox;
     public ComboBox<Divisions> stateProvinceComboBox;
     public ComboBox<Countries> countryComboBox;
-    public TextField divisionIdBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

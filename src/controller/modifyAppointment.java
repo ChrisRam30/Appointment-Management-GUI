@@ -58,7 +58,7 @@ public class modifyAppointment implements Initializable {
 
     }
 
-    public void recieveAppointmentData(Appointments data) {
+    public void receiveAppointmentData(Appointments data) {
 
 
         modifyAppointmentIdBox.setText(String.valueOf(data.getAppointmentId()));

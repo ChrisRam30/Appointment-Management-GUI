@@ -78,4 +78,10 @@ public class Customers {
 
     public Divisions getDivisionName() { return DivisionCRUD.getDivisionByCustomerId(divisionId);
     }
+
+    @Override
+    public String toString() {
+        return(getCustomerName());
+    }
 }
+

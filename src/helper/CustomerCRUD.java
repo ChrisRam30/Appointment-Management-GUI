@@ -36,6 +36,11 @@ public class CustomerCRUD {
     public static void deleteCustomer(int customerId) throws SQLException {
 
         try {
+            String sqlt = "DELETE FROM APPOINTMENTS WHERE CUSTOMER_ID = ?";
+
+            PreparedStatement pst = JDBC.connection.prepareStatement(sqlt);
+            pst.setInt(1, customerId);
+            pst.execute();
             String sql = "DELETE FROM CUSTOMERS WHERE CUSTOMER_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, customerId);
@@ -50,6 +55,19 @@ public class CustomerCRUD {
     public static int insertCustomer(String customerName, String address, String postalCode,
                                         String phone, int divisionId) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, customerName);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setInt(5, divisionId);
+        int rowsAffected = ps.executeUpdate(); //required to initiate in main
+        return rowsAffected;
+    }
+
+    public static int modifyCustomer(String customerName, String address, String postalCode,
+                                     String phone, int divisionId) throws SQLException { //indicates what you want inserted
+        String sql = "UPDATE APPOINTMENTS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ? ";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, customerName);
         ps.setString(2, address);

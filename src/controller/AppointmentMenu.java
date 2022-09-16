@@ -92,7 +92,7 @@ public class AppointmentMenu implements Initializable {
         loader.setLocation(getClass().getResource("/view/modifyAppointment.fxml"));
         loader.load();
         modifyAppointment modAppController = loader.getController();
-        modAppController.recieveAppointmentData(appointmentTable.getSelectionModel().getSelectedItem());
+        modAppController.receiveAppointmentData(appointmentTable.getSelectionModel().getSelectedItem());
 
 
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -130,13 +130,17 @@ public class AppointmentMenu implements Initializable {
     }
 
     public void viewAllRadioButtonClick(ActionEvent actionEvent) {
+        appointmentTable.setItems(AppointmentsCRUD.getAllAppointments());
+
     }
 
     public void viewByWeekRadioButtonClick(ActionEvent actionEvent) {
+        appointmentTable.setItems(AppointmentsCRUD.getAppointmentsByWeek());
+
     }
 
     public void viewByMonthRadioButtonClck(ActionEvent actionEvent) {
-        appointmentTable.setItems(AppointmentsCRUD.getAppointsmentsByMonth());
+        appointmentTable.setItems(AppointmentsCRUD.getAppointmentsByMonth());
 
     }
 }

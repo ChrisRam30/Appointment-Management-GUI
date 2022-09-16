@@ -2,6 +2,7 @@ package controller;
 
 
 import helper.AppointmentsCRUD;
+import helper.CustomerCRUD;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Appointments;
+import model.Contacts;
 import model.Customers;
 
 import java.io.IOException;
@@ -42,7 +44,7 @@ public class AddAppointment implements Initializable {
     public ComboBox<LocalTime> startTimeComboBox;
     public ComboBox<LocalTime> endTimeComboBox;
     public ComboBox<Appointments> contactIDComboBox;
-    public ComboBox<Appointments> customerIdComboBox;
+    public ComboBox<Customers> customerIdComboBox;
     public ComboBox userIdComboBox;
 
 
@@ -60,10 +62,10 @@ public class AddAppointment implements Initializable {
         endTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
 
         contactIDComboBox.setItems(AppointmentsCRUD.getAllAppointments());
-        customerIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
+        customerIdComboBox.setItems(CustomerCRUD.getAllCustomers());
         userIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
 
-        Appointments ContID = contactIDComboBox.getValue();
+        //Appointments ContID = contactIDComboBox.getValue();
 
 
     }
@@ -77,7 +79,7 @@ public class AddAppointment implements Initializable {
         AppointmentsCRUD.insertAppointment(titleBox.getText(),
                 descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
                 starttime,endtime, Integer.parseInt(String.valueOf(customerIdComboBox.getValue())),
-                Integer.parseInt(String.valueOf(userIdComboBox.getValue())),
+                Integer.parseInt(String.valueOf(userIdComboBox.getValue())), //what is going on here?! not working when I am adding appointment now
                 Integer.parseInt(String.valueOf(contactIDComboBox.getValue())));
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
@@ -98,7 +100,7 @@ public class AddAppointment implements Initializable {
         stage.show();
     }
 
-    private int customerId = 1;
+    //private int customerId = 1;
 
     public void contactIDComboBoxClick(ActionEvent actionEvent) {
 
