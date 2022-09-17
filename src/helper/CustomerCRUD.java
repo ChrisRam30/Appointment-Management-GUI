@@ -67,7 +67,7 @@ public class CustomerCRUD {
 
     public static int modifyCustomer(String customerName, String address, String postalCode,
                                      String phone, int divisionId, int customerId) throws SQLException { //indicates what you want inserted
-        String sql = "UPDATE APPOINTMENTS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ? ";
+        String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ? ";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, customerName);
         ps.setString(2, address);

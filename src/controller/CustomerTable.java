@@ -40,6 +40,7 @@ public class CustomerTable implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         customerTable.setItems(CustomerCRUD.getAllCustomers());
 
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));

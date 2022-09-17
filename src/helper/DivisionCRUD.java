@@ -4,6 +4,7 @@ import java.sql.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Countries;
 import model.Divisions;
 
 public class DivisionCRUD {
@@ -28,17 +29,16 @@ public class DivisionCRUD {
         return dList;
     }
 
-    public static Divisions getDivisionByCustomerId(int customerId) {
+    public static Divisions getDivisionByCountryId(int countryId) {
         try {
-            String SQL = "SELECT D.* FROM first_level_divisions AS D INNER JOIN CUSTOMERS AS C ON D.Division_ID = C.DIVISION_ID AND C.CUSTOMER_ID = ?";
+            String SQL = "SELECT D.* FROM first_level_divisions AS D INNER JOIN Countries AS C ON D.Country_ID = C.Country_ID AND D.Division_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
-            ps.setInt(1,customerId);
+            ps.setInt(1,countryId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 int divisionId = rs.getInt("Division_ID");
                 String divisionName = rs.getString("Division");
-                int countryId = rs.getInt("Country_ID");
 
                 Divisions d = new Divisions(divisionId, divisionName, countryId);
                 return d;

@@ -76,7 +76,7 @@ public class Customers {
         return CountriesCRUD.getCountryByDivision(divisionId);
     }
 
-    public Divisions getDivisionName() { return DivisionCRUD.getDivisionByCustomerId(divisionId);
+    public Divisions getDivisionName() { return DivisionCRUD.getDivisionByCountryId(divisionId);
     }
 
     @Override

@@ -57,10 +57,17 @@ public class ModifyCustomer implements Initializable {
 
     }
 
-    public void saveButtonClick(ActionEvent actionEvent) throws SQLException {
+    public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         CustomerCRUD.modifyCustomer(customerNameBox.getText(),
                 addressBox.getText(), postalCodeBox.getText(), phoneBox.getText(),
                 stateProvinceComboBox.getValue().getDivisionId(), Integer.parseInt(customerIdBox.getText()));
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Customer Menu");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
