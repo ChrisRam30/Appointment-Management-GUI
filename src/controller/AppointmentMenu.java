@@ -50,7 +50,7 @@ public class AppointmentMenu implements Initializable {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        contactColumn.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        contactColumn.setCellValueFactory(new PropertyValueFactory<>("contactName"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         startDateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
         endDateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
@@ -63,10 +63,6 @@ public class AppointmentMenu implements Initializable {
 
     }
 
-
-    public void viewAllButton(ActionEvent actionEvent) {
-
-    }
 
     public void reportsClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsMenu.fxml"));

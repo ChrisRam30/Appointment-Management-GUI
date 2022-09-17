@@ -2,7 +2,9 @@ package controller;
 
 
 import helper.AppointmentsCRUD;
+import helper.ContactsCRUD;
 import helper.CustomerCRUD;
+import helper.UserCRUD;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
 import model.Customers;
+import model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,9 +46,9 @@ public class AddAppointment implements Initializable {
     public DatePicker endDateBox;
     public ComboBox<LocalTime> startTimeComboBox;
     public ComboBox<LocalTime> endTimeComboBox;
-    public ComboBox<Appointments> contactIDComboBox;
+    public ComboBox<Contacts> contactIDComboBox;
     public ComboBox<Customers> customerIdComboBox;
-    public ComboBox userIdComboBox;
+    public ComboBox<User> userIdComboBox;
 
 
     @Override
@@ -61,9 +64,9 @@ public class AddAppointment implements Initializable {
         startTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
         endTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
 
-        contactIDComboBox.setItems(AppointmentsCRUD.getAllAppointments());
+        contactIDComboBox.setItems(ContactsCRUD.getAllContacts());
         customerIdComboBox.setItems(CustomerCRUD.getAllCustomers());
-        userIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
+        userIdComboBox.setItems(UserCRUD.getAllUsers());
 
         //Appointments ContID = contactIDComboBox.getValue();
 
@@ -78,9 +81,8 @@ public class AddAppointment implements Initializable {
 
         AppointmentsCRUD.insertAppointment(titleBox.getText(),
                 descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
-                starttime,endtime, customerIdComboBox.getValue().getCustomerId(),
-                Integer.parseInt(String.valueOf(userIdComboBox.getValue())),
-                Integer.parseInt(String.valueOf(contactIDComboBox.getValue())));
+                starttime,endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
+                contactIDComboBox.getValue().getContactId());
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

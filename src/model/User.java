@@ -6,10 +6,10 @@ public class User {
     private String userName;
     private String password;
 
-    public User(int id, String userName, String password) {
-        this.id = id;
+    public User(int userId, String userName, String userPassword) {
+        this.id = userId;
         this.userName = userName;
-        this.password = password;
+        this.password = userPassword;
     }
 
     public int getId() {
@@ -34,5 +34,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    @Override
+    public String toString() {
+        return(getUserName());
     }
 }

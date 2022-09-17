@@ -1,6 +1,8 @@
 package controller;
 
 import helper.AppointmentsCRUD;
+import helper.ContactsCRUD;
+import helper.DivisionCRUD;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Appointments;
+import model.Contacts;
+import model.Divisions;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +38,7 @@ public class modifyAppointment implements Initializable {
     public Button modifyCancelButton;
     public ComboBox<LocalTime> modifyStartTimeComboBox;
     public ComboBox<LocalTime> modifyEndTimeComboBox;
-    public ComboBox modifyContactIDComboBox;
+    public ComboBox<Contacts> modifyContactIDComboBox;
     public ComboBox modifyCustomerIdComboBox;
     public ComboBox modifyUserIdComboBox;
 
@@ -51,7 +55,7 @@ public class modifyAppointment implements Initializable {
         modifyStartTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
         modifyEndTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
 
-        modifyContactIDComboBox.setItems(AppointmentsCRUD.getAllAppointments());
+        modifyContactIDComboBox.setItems(ContactsCRUD.getAllContacts());
         modifyCustomerIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
         modifyUserIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
 
@@ -72,10 +76,11 @@ public class modifyAppointment implements Initializable {
         modifyEndDateBox.setValue(data.getStartDateTime().toLocalDateTime().toLocalDate());
         modifyCustomerIdComboBox.setValue(data.getCustomerId());
         modifyUserIdComboBox.setValue(data.getUserId());
-        modifyContactIDComboBox.setValue(data.getContact());
+        Contacts c = ContactsCRUD.getContacts(data.getContactId());
+        modifyContactIDComboBox.setValue(c);
     }
 
-    public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException {
+    public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
         Timestamp startTime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue()));
         Timestamp endTime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue()));
@@ -86,6 +91,13 @@ public class modifyAppointment implements Initializable {
                 Integer.parseInt(String.valueOf(modifyUserIdComboBox.getValue())),
                 Integer.parseInt(String.valueOf(modifyCustomerIdComboBox.getValue())),
                 Integer.parseInt(modifyAppointmentIdBox.getText()));
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Appointment Menu");
+        stage.setScene(scene);
+        stage.show();
 
 
     }

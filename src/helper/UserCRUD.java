@@ -1,10 +1,36 @@
 package helper;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Contacts;
+import model.User;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserCRUD {
+
+    public static ObservableList<User> getAllUsers() {
+        ObservableList<User> uList = FXCollections.observableArrayList();
+        try {
+            String SQL = "SELECT * FROM Users;";
+            PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery(SQL);
+
+            while (rs.next()) {
+                int userId = rs.getInt("User_ID");
+                String userName = rs.getString("User_Name");
+                String userPassword = rs.getString("Password");
+
+                User u = new User(userId, userName, userPassword);
+                uList.add(u);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return uList;
+    }
 
     public static void select() throws SQLException {
         String sql = "SELECT * FROM users";
