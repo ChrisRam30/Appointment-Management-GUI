@@ -4,6 +4,7 @@ import java.sql.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Contacts;
 import model.Countries;
 import model.Customers;
 import model.Divisions;
@@ -79,4 +80,27 @@ public class CustomerCRUD {
         return rowsAffected;
     }
 
+    public static Customers getCustomers(int customerId) {
+        try {
+            String SQL = "SELECT * FROM Customers WHERE Customer_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
+            ps.setInt(1, customerId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String customerName = rs.getString("Customer_Name");
+                String phone = rs.getString("Phone");
+                String address = rs.getString("Address");
+                String postalCode = rs.getString("Postal_Code");
+                int divisionId = rs.getInt("Division_ID");
+
+
+                Customers a = new Customers(customerId, customerName, phone, address, postalCode, divisionId);
+                return a;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 }

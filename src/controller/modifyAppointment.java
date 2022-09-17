@@ -1,8 +1,6 @@
 package controller;
 
-import helper.AppointmentsCRUD;
-import helper.ContactsCRUD;
-import helper.DivisionCRUD;
+import helper.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Appointments;
-import model.Contacts;
-import model.Divisions;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,8 +35,8 @@ public class modifyAppointment implements Initializable {
     public ComboBox<LocalTime> modifyStartTimeComboBox;
     public ComboBox<LocalTime> modifyEndTimeComboBox;
     public ComboBox<Contacts> modifyContactIDComboBox;
-    public ComboBox modifyCustomerIdComboBox;
-    public ComboBox modifyUserIdComboBox;
+    public ComboBox<Customers> modifyCustomerIdComboBox;
+    public ComboBox<User> modifyUserIdComboBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,8 +52,8 @@ public class modifyAppointment implements Initializable {
         modifyEndTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
 
         modifyContactIDComboBox.setItems(ContactsCRUD.getAllContacts());
-        modifyCustomerIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
-        modifyUserIdComboBox.setItems(AppointmentsCRUD.getAllAppointments());
+        modifyCustomerIdComboBox.setItems(CustomerCRUD.getAllCustomers());
+        modifyUserIdComboBox.setItems(UserCRUD.getAllUsers());
 
 
     }
@@ -74,8 +70,15 @@ public class modifyAppointment implements Initializable {
         modifyStartDateBox.setValue(data.getStartDateTime().toLocalDateTime().toLocalDate());
         modifyEndTimeComboBox.setValue((data.getEndDateTime().toLocalDateTime().toLocalTime()));
         modifyEndDateBox.setValue(data.getStartDateTime().toLocalDateTime().toLocalDate());
-        modifyCustomerIdComboBox.setValue(data.getCustomerId());
-        modifyUserIdComboBox.setValue(data.getUserId());
+
+
+        Customers a = CustomerCRUD.getCustomers(data.getCustomerId());
+        modifyCustomerIdComboBox.setValue(a);
+
+        User u = UserCRUD.getUser(data.getUserId());
+        modifyUserIdComboBox.setValue(u);
+
+
         Contacts c = ContactsCRUD.getContacts(data.getContactId());
         modifyContactIDComboBox.setValue(c);
     }
@@ -87,9 +90,9 @@ public class modifyAppointment implements Initializable {
 
         AppointmentsCRUD.modifyAppointment(modifyTitleBox.getText(),
                 modifyDescriptionBox.getText(), modifyLocationBox.getText(), modifyTypeBox.getText(),
-                startTime,endTime, Integer.parseInt(String.valueOf(modifyCustomerIdComboBox.getValue())),
-                Integer.parseInt(String.valueOf(modifyUserIdComboBox.getValue())),
-                Integer.parseInt(String.valueOf(modifyCustomerIdComboBox.getValue())),
+                startTime,endTime, modifyContactIDComboBox.getValue().getContactId(),
+                modifyUserIdComboBox.getValue().getId(),
+                modifyCustomerIdComboBox.getValue().getCustomerId(),
                 Integer.parseInt(modifyAppointmentIdBox.getText()));
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));

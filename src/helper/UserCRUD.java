@@ -54,4 +54,24 @@ public class UserCRUD {
             String password = rs.getString("Password");
         }
     }
+
+    public static User getUser(int userId) {
+        try {
+            String SQL = "SELECT * FROM USERS WHERE User_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
+            ps.setInt(1,userId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String userName = rs.getString("User_Name");
+                String password = rs.getString("Password");
+
+                User u = new User(userId,userName, password);
+                return u;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 }

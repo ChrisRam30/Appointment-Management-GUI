@@ -1,6 +1,8 @@
 package controller;
 
 import helper.AppointmentsCRUD;
+import helper.ContactsCRUD;
+import helper.CountriesCRUD;
 import helper.ReportsCRUD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Contacts;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,11 +30,14 @@ public class contactsReport implements Initializable {
     public TableColumn startDateTimeColumn;
     public TableColumn endDateTimeColumn;
     public Button backToAppointmentsButton;
-    public ComboBox contactComboBox;
+    public ComboBox<Contacts> contactComboBox;
     public TableView appointmentTable;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        contactComboBox.setItems(ContactsCRUD.getAllContacts());
+
         appointmentTable.setItems(AppointmentsCRUD.getAllAppointments());
 
         appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
@@ -54,6 +60,8 @@ public class contactsReport implements Initializable {
     }
 
     public void contactComboBoxClick(ActionEvent actionEvent) {
+
+
 
     }
 }
