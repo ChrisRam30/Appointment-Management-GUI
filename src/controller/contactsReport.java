@@ -60,8 +60,7 @@ public class contactsReport implements Initializable {
     }
 
     public void contactComboBoxClick(ActionEvent actionEvent) {
-
-
+        appointmentTable.setItems(AppointmentsCRUD.getContactAppointments(contactComboBox.getValue().getContactId())); //work on this, not calling SQL correctly.
 
     }
 }
