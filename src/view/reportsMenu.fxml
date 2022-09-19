@@ -8,13 +8,14 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsMenu">
    <children>
       <Button fx:id="contactScheduleBox" layoutX="192.0" layoutY="138.0" mnemonicParsing="false" onAction="#contactScheduleBoxClick" prefHeight="25.0" prefWidth="253.0" text="Contact Schedules" />
-      <Button fx:id="customerAppointmentBox" layoutX="192.0" layoutY="200.0" mnemonicParsing="false" onAction="#customerAppointmentBoxClick" text="Customer Appointments by Type and Month" />
-      <Button layoutX="192.0" layoutY="268.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="253.0" text="Unique Query?" />
+      <Button fx:id="monthAppointmentBox" layoutX="192.0" layoutY="238.0" mnemonicParsing="false" onAction="#monthAppointmentBoxClick" prefHeight="25.0" prefWidth="253.0" text="Customer Appointments by Month" />
+      <Button layoutX="192.0" layoutY="298.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="253.0" text="Unique Query?" />
       <Label layoutX="257.0" layoutY="14.0" text="Reports">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
       <Button fx:id="backToAppointments" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToAppointmentsClick" text="Back to Appointments" />
+      <Button fx:id="typeAppointmentBox1" layoutX="192.0" layoutY="188.0" mnemonicParsing="false" onAction="#typeAppointmentBoxClick" prefHeight="25.0" prefWidth="253.0" text="Customer Appointments by Type" />
    </children>
 </AnchorPane>
