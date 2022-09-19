@@ -34,6 +34,7 @@ public class TypeReports implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(AppointmentsCRUD.getAllTypes().size());
 
         typeComboBox.setItems(AppointmentsCRUD.getAllTypes());
 

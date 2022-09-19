@@ -222,7 +222,7 @@ public class AppointmentsCRUD {
 
         ObservableList<Appointments> tList = FXCollections.observableArrayList();
         try {
-            String SQL = "SELECT Type FROM APPOINTMENTS;";
+            String SQL = "SELECT Type FROM Appointments";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery(SQL);
 

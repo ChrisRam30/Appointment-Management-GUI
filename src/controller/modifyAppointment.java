@@ -85,15 +85,23 @@ public class modifyAppointment implements Initializable {
 
     public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
+        System.out.println(modifyCustomerIdComboBox.getValue().getCustomerId());
+
+
+
+        String title = modifyTitleBox.getText();
+        String description = modifyDescriptionBox.getText();
+        String location = modifyLocationBox.getText();
+        String type = modifyTypeBox.getText();
         Timestamp startTime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue()));
         Timestamp endTime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue()));
+        int customerId = modifyCustomerIdComboBox.getValue().getCustomerId();
+        int userId = modifyUserIdComboBox.getValue().getId();
+        int contactId = modifyContactIDComboBox.getValue().getContactId();
+        int appointmentId = Integer.parseInt(modifyAppointmentIdBox.getText());
 
-        AppointmentsCRUD.modifyAppointment(modifyTitleBox.getText(),
-                modifyDescriptionBox.getText(), modifyLocationBox.getText(), modifyTypeBox.getText(),
-                startTime,endTime, modifyContactIDComboBox.getValue().getContactId(),
-                modifyUserIdComboBox.getValue().getId(),
-                modifyCustomerIdComboBox.getValue().getCustomerId(),
-                Integer.parseInt(modifyAppointmentIdBox.getText()));
+        AppointmentsCRUD.modifyAppointment( title,  description,  location, type,  startTime,  endTime,
+                customerId,  userId,  contactId,  appointmentId);
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -101,6 +109,8 @@ public class modifyAppointment implements Initializable {
         stage.setTitle("Appointment Menu");
         stage.setScene(scene);
         stage.show();
+
+
 
 
     }
