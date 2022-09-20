@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
@@ -75,24 +72,34 @@ public class AddAppointment implements Initializable {
     }
 
 
-   /public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {    //working on this method to at time exception
+   public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {    //working on this method to at time exception
 
         Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
         Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));
 
 
 
-        LocalDateTime startDT = LocalDateTime.of(AppointmentsCRUD.getAllStartTimes());
-        LocalDateTime endDT = LocalDateTime.of(AppointmentsCRUD.getAllEndTimes());
+       // LocalDateTime startDT = LocalDateTime.of(AppointmentsCRUD.getAllStartTimes());
+        //LocalDateTime endDT = LocalDateTime.of(AppointmentsCRUD.getAllEndTimes());
+
         LocalDateTime mystartDT = LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue());
         LocalDateTime myEndDT = LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue());
+        int customerId = customerIdComboBox.getValue().getCustomerId();
 
-        if(mystartDT.isAfter(startDT) && myEndDT.isBefore(endDT))
-            System.out.println("Conflicting appointments");
-        else if(mystartDT.equals(startDT) || myEndDT.equals(endDT))
-            System.out.println("Conflicting appointments");
-        else
-            AppointmentsCRUD.insertAppointment(titleBox.getText(),
+        for (Appointments appt:AppointmentsCRUD.getAllAppointments()) {
+            if (appt.getCustomerId() != customerId)
+                continue;
+            if(myEndDT.isBefore(appt.getStartDateTime().toLocalDateTime()) || myEndDT.isEqual(appt.getStartDateTime().toLocalDateTime()) ||
+            mystartDT.isAfter(appt.getEndDateTime().toLocalDateTime()) || mystartDT.isEqual(appt.getEndDateTime().toLocalDateTime())) {
+                continue;
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Conflict of Appointments");
+                alert.show();
+                return;
+            }
+        }
+        AppointmentsCRUD.insertAppointment(titleBox.getText(),
                     descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
                     starttime,endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
                     contactIDComboBox.getValue().getContactId());
