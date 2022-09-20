@@ -75,7 +75,7 @@ public class AddAppointment implements Initializable {
     }
 
 
-    public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
+   /public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {    //working on this method to at time exception
 
         Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
         Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));

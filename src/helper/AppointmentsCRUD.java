@@ -218,29 +218,18 @@ public class AppointmentsCRUD {
         return cList;
     }
 
-    public static ObservableList<Appointments> getAllTypes() {
+    public static ObservableList<String> getAllTypes() { //this allows for the call of DISTINCT types to combo box*****
 
-        ObservableList<Appointments> tList = FXCollections.observableArrayList();
+        ObservableList<String> tList = FXCollections.observableArrayList();
         try {
-            String SQL = "SELECT Type FROM APPOINTMENTS;";
+            String SQL = "SELECT DISTINCT Type FROM APPOINTMENTS;";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery(SQL);
 
             while (rs.next()) {
-                int appointmentId = rs.getInt("Appointment_ID");
-                String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
-                int contact = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
-                Timestamp startDateTime = rs.getTimestamp("Start");
-                Timestamp endDateTime = rs.getTimestamp("End");
-                int customerId = rs.getInt("Customer_ID");
-                int UserId = rs.getInt("User_ID");
 
-                Appointments a = new Appointments(appointmentId, title, description, location, contact, type, startDateTime,
-                        endDateTime, customerId, UserId);
-                tList.add(a);
+                tList.add(type);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

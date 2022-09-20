@@ -29,7 +29,7 @@ public class TypeReports implements Initializable {
     public TableColumn startDateTimeColumn;
     public TableColumn endDateTimeColumn;
     public Button backToAppointmentsButton;
-    public ComboBox<Appointments> typeComboBox;
+    public ComboBox<String> typeComboBox;
 
 
     @Override
@@ -51,7 +51,7 @@ public class TypeReports implements Initializable {
     }
 
     public void typeComboBoxClick(ActionEvent actionEvent) {
-        appointmentTable.setItems(AppointmentsCRUD.getTypeAppointments(typeComboBox.getValue().getType()));
+        appointmentTable.setItems(AppointmentsCRUD.getTypeAppointments(typeComboBox.getValue()));
 
     }
 
