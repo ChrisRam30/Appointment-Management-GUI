@@ -87,8 +87,6 @@ public class modifyAppointment implements Initializable {
 
         System.out.println(modifyCustomerIdComboBox.getValue().getCustomerId());
 
-
-
         String title = modifyTitleBox.getText();
         String description = modifyDescriptionBox.getText();
         String location = modifyLocationBox.getText();

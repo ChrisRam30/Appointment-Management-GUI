@@ -1,7 +1,6 @@
 package controller;
 
 import helper.AppointmentsCRUD;
-import helper.ContactsCRUD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,7 +18,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TypeReports implements Initializable {
+public class MonthReports implements Initializable {
+
+
     public TableView appointmentTable;
     public TableColumn customerIdColumn;
     public TableColumn appointmentIdColumn;
@@ -29,14 +30,13 @@ public class TypeReports implements Initializable {
     public TableColumn startDateTimeColumn;
     public TableColumn endDateTimeColumn;
     public Button backToAppointmentsButton;
-    public ComboBox<Appointments> typeComboBox;
-
+    public ComboBox<Appointments> monthComboBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //System.out.println(AppointmentsCRUD.getAllTypes().size());
 
-        typeComboBox.setItems(AppointmentsCRUD.getAllTypes());
+        monthComboBox.setItems(AppointmentsCRUD.getAppointmentsMonthsReport());
+
 
         appointmentTable.setItems(AppointmentsCRUD.getAllAppointments());
 
@@ -49,12 +49,6 @@ public class TypeReports implements Initializable {
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
 
     }
-
-    public void typeComboBoxClick(ActionEvent actionEvent) {
-        appointmentTable.setItems(AppointmentsCRUD.getTypeAppointments(typeComboBox.getValue().getType()));
-
-    }
-
     public void backToAppointmentsButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -64,5 +58,8 @@ public class TypeReports implements Initializable {
         stage.show();
     }
 
+    public void monthComboBoxClick(ActionEvent actionEvent) {
+        appointmentTable.setItems(AppointmentsCRUD.getAppointmentsByMonth(monthComboBox.getValue().getStartDateTime()));
 
+    }
 }

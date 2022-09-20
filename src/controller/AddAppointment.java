@@ -28,6 +28,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddAppointment implements Initializable {
@@ -79,10 +80,22 @@ public class AddAppointment implements Initializable {
         Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
         Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));
 
-        AppointmentsCRUD.insertAppointment(titleBox.getText(),
-                descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
-                starttime,endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
-                contactIDComboBox.getValue().getContactId());
+
+
+        LocalDateTime startDT = LocalDateTime.of(AppointmentsCRUD.getAllStartTimes());
+        LocalDateTime endDT = LocalDateTime.of(AppointmentsCRUD.getAllEndTimes());
+        LocalDateTime mystartDT = LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue());
+        LocalDateTime myEndDT = LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue());
+
+        if(mystartDT.isAfter(startDT) && myEndDT.isBefore(endDT))
+            System.out.println("Conflicting appointments");
+        else if(mystartDT.equals(startDT) || myEndDT.equals(endDT))
+            System.out.println("Conflicting appointments");
+        else
+            AppointmentsCRUD.insertAppointment(titleBox.getText(),
+                    descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
+                    starttime,endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
+                    contactIDComboBox.getValue().getContactId());
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

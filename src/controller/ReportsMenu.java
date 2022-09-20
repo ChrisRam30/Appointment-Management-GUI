@@ -38,7 +38,13 @@ public class ReportsMenu {
         stage.show();
     }
 
-    public void monthAppointmentBoxClick(ActionEvent actionEvent) {
+    public void monthAppointmentBoxClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/monthReports.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Months Report");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void typeAppointmentBoxClick(ActionEvent actionEvent) throws IOException {
