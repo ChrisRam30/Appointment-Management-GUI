@@ -99,17 +99,24 @@ public class AddAppointment implements Initializable {
                 return;
             }
         }
-        AppointmentsCRUD.insertAppointment(titleBox.getText(),
-                    descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
-                    starttime,endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
-                    contactIDComboBox.getValue().getContactId());
+       if (titleBox.getText().isEmpty()) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Add Name");
+           alert.showAndWait();
+       } else {
+           AppointmentsCRUD.insertAppointment(titleBox.getText(),
+                   descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
+                   starttime, endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
+                   contactIDComboBox.getValue().getContactId());
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Appointment Menu");
-        stage.setScene(scene);
-        stage.show();
+           Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
+           Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+           Scene scene = new Scene(root);
+           stage.setTitle("Appointment Menu");
+           stage.setScene(scene);
+           stage.show();
+       }
 
     }
 

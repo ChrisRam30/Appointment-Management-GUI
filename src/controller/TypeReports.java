@@ -21,7 +21,6 @@ public class TypeReports implements Initializable {
 
     public TableColumn typeColumn;
     public Button backToAppointmentsButton;
-    public ComboBox<Timestamp> monthComboBox;
     public TableView appointmentCountTable;
     public TableColumn monthColumn;
     public TableColumn countColumn;
@@ -30,20 +29,15 @@ public class TypeReports implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        monthComboBox.setItems(AppointmentsCRUD.getAllMonths());
 
-        appointmentCountTable.setItems(AppointmentsCRUD.getAllAppointments());
+        appointmentCountTable.setItems(AppointmentsCRUD.getAppointmentTMCount());
 
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        monthColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("typeName"));
+        monthColumn.setCellValueFactory(new PropertyValueFactory<>("monthName"));
+        countColumn.setCellValueFactory(new PropertyValueFactory<>("count"));
 
     }
 
-    /*public void typeComboBoxClick(ActionEvent actionEvent) {
-        appointmentTable.setItems(AppointmentsCRUD.getTypeAppointments(typeComboBox.getValue()));
-
-    }*/
 
     public void backToAppointmentsButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsMenu.fxml"));
@@ -54,9 +48,4 @@ public class TypeReports implements Initializable {
         stage.show();
     }
 
-
-    public void monthComboBoxClick(ActionEvent actionEvent) {
-        appointmentCountTable.setItems(AppointmentsCRUD.getAppointmentTMCount(monthComboBox.getValue()));
-
-    }
 }

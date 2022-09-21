@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointments;
 import model.Contacts;
+import model.MonthTypeCount;
 
 public class AppointmentsCRUD {
     public static ObservableList<Appointments> getAllAppointments() {
@@ -237,30 +238,21 @@ public class AppointmentsCRUD {
         return tList;
     }
 
-    public static ObservableList<Appointments> getAppointmentTMCount(Timestamp start) {
+    public static ObservableList<MonthTypeCount> getAppointmentTMCount() {
 
-        ObservableList<Appointments> cList = FXCollections.observableArrayList();
+        ObservableList<MonthTypeCount> cList = FXCollections.observableArrayList();
 
         try {
-            String SQL = "SELECT * FROM appointments where Start = ?";
+            String SQL = "SELECT Monthname(start) AS MN, type, COUNT(type) AS CT FROM appointments GROUP BY Monthname(start), type";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
-            ps.setTimestamp(1,start);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int appointmentId = rs.getInt("Appointment_ID");
-                String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
-                int contact = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
-                Timestamp startDateTime = rs.getTimestamp("Start");
-                Timestamp endDateTime = rs.getTimestamp("End");
-                int customerId = rs.getInt("Customer_ID");
-                int UserId = rs.getInt("User_ID");
+                String monthName = rs.getString("MN");
+                int count = rs.getInt("CT");
 
-                Appointments c = new Appointments(appointmentId, title, description, location, contact, type, startDateTime,
-                        endDateTime, customerId, UserId);
+                MonthTypeCount c = new MonthTypeCount(monthName, type, count);
                 cList.add(c);
             }
         } catch (SQLException throwables) {
