@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
 
@@ -98,6 +95,23 @@ public class modifyAppointment implements Initializable {
         int contactId = modifyContactIDComboBox.getValue().getContactId();
         int appointmentId = Integer.parseInt(modifyAppointmentIdBox.getText());
 
+
+        LocalDateTime mystartDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue());
+        LocalDateTime myEndDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue());
+
+        for (Appointments appt:AppointmentsCRUD.getAllAppointments()) {
+            if (appt.getCustomerId() != customerId)
+                continue;
+            if(myEndDT.isBefore(appt.getStartDateTime().toLocalDateTime()) || myEndDT.isEqual(appt.getStartDateTime().toLocalDateTime()) ||
+                    mystartDT.isAfter(appt.getEndDateTime().toLocalDateTime()) || mystartDT.isEqual(appt.getEndDateTime().toLocalDateTime())) {
+                continue;
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Conflict of Appointments");
+                alert.show();
+                return;
+            }
+        }
         AppointmentsCRUD.modifyAppointment( title,  description,  location, type,  startTime,  endTime,
                 customerId,  userId,  contactId,  appointmentId);
 

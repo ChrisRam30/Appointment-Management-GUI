@@ -218,18 +218,18 @@ public class AppointmentsCRUD {
         return cList;
     }
 
-    public static ObservableList<String> getAllTypes() { //this allows for the call of DISTINCT types to combo box*****
+    public static ObservableList<Timestamp> getAllMonths() { //this allows for the call of DISTINCT months to combo box*****
 
-        ObservableList<String> tList = FXCollections.observableArrayList();
+        ObservableList<Timestamp> tList = FXCollections.observableArrayList();
         try {
-            String SQL = "SELECT DISTINCT Type FROM APPOINTMENTS;";
+            String SQL = "SELECT distinct month(start) from appointments";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery(SQL);
 
             while (rs.next()) {
-                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
 
-                tList.add(type);
+                tList.add(start);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -237,13 +237,15 @@ public class AppointmentsCRUD {
         return tList;
     }
 
-    public static ObservableList<Appointments> getAppointmentsMonthsReport() {
+    public static ObservableList<Appointments> getAppointmentTMCount(Timestamp start) {
 
-        ObservableList<Appointments> mList = FXCollections.observableArrayList();
+        ObservableList<Appointments> cList = FXCollections.observableArrayList();
+
         try {
-            String SQL = "SELECT start FROM APPOINTMENTS;";
+            String SQL = "SELECT * FROM appointments where Start = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery(SQL);
+            ps.setTimestamp(1,start);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 int appointmentId = rs.getInt("Appointment_ID");
@@ -257,15 +259,16 @@ public class AppointmentsCRUD {
                 int customerId = rs.getInt("Customer_ID");
                 int UserId = rs.getInt("User_ID");
 
-                Appointments a = new Appointments(appointmentId, title, description, location, contact, type, startDateTime,
+                Appointments c = new Appointments(appointmentId, title, description, location, contact, type, startDateTime,
                         endDateTime, customerId, UserId);
-                mList.add(a);
+                cList.add(c);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return mList;
+        return cList;
     }
+
     public static ObservableList<Appointments> getAppointmentsByMonth(Timestamp date) {
         ObservableList<Appointments> cList = FXCollections.observableArrayList();
 

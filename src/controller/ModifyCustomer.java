@@ -58,6 +58,8 @@ public class ModifyCustomer implements Initializable {
     }
 
     public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
+
+
         CustomerCRUD.modifyCustomer(customerNameBox.getText(),
                 addressBox.getText(), postalCodeBox.getText(), phoneBox.getText(),
                 stateProvinceComboBox.getValue().getDivisionId(), Integer.parseInt(customerIdBox.getText()));

@@ -11,9 +11,7 @@ import java.io.IOException;
 
 public class ReportsMenu {
     public Button contactScheduleBox;
-    public Button customerAppointmentBox;
     public Button backToAppointments;
-    public Button monthAppointmentBox;
     public Button typeAppointmentBox1;
 
     public void contactScheduleBoxClick(ActionEvent actionEvent) throws IOException {
@@ -34,15 +32,6 @@ public class ReportsMenu {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Appointments Menu");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void monthAppointmentBoxClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/monthReports.fxml"));
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Months Report");
         stage.setScene(scene);
         stage.show();
     }

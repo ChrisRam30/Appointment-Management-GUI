@@ -6,21 +6,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="539.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TypeReports">
+<AnchorPane prefHeight="441.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TypeReports">
    <children>
-      <TableView fx:id="appointmentTable" layoutX="41.0" layoutY="80.0" prefHeight="445.0" prefWidth="937.0">
+      <TableView fx:id="appointmentCountTable" layoutX="103.0" layoutY="146.0" prefHeight="237.0" prefWidth="459.0">
          <columns>
-            <TableColumn fx:id="customerIdColumn" prefWidth="104.80003356933594" text="Customer ID" />
-            <TableColumn fx:id="appointmentIdColumn" prefWidth="148.00006103515625" text="Appointment ID" />
-            <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="157.5999755859375" text="Title" />
-            <TableColumn fx:id="typeColumn" prefWidth="83.20001220703125" text="Type" />
-            <TableColumn fx:id="descriptionColumn" prefWidth="75.0" text="Description" />
-            <TableColumn fx:id="startDateTimeColumn" prefWidth="180.0" text="Start Data/Time" />
-            <TableColumn fx:id="endDateTimeColumn" prefWidth="183.20001220703125" text="End Date/Time" />
+            <TableColumn fx:id="monthColumn" prefWidth="146.0" text="Month" />
+            <TableColumn fx:id="typeColumn" prefWidth="149.0" text="Type" />
+            <TableColumn fx:id="countColumn" prefWidth="163.0" text="Count" />
          </columns>
       </TableView>
       <Button fx:id="backToAppointmentsButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#backToAppointmentsButtonClick" text="Back to Appointments" />
-      <ComboBox fx:id="typeComboBox" layoutX="425.0" layoutY="27.0" onAction="#typeComboBoxClick" prefHeight="25.0" prefWidth="227.0" promptText="Select Appointment Type" />
+      <ComboBox fx:id="monthComboBox" layoutX="251.0" layoutY="87.0" onAction="#monthComboBoxClick" prefWidth="150.0" promptText="Select Month" />
    </children>
 </AnchorPane>
