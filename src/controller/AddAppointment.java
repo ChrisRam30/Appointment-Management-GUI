@@ -36,10 +36,7 @@ public class AddAppointment implements Initializable {
     public TextField typeBox;
     public Button saveButtonBox;
     public Button cancelButton;
-    public TextField contactIdBox;
-    public TextField customerIdBox;
     public TextField locationBox;
-    public TextField userIdBox;
     public DatePicker startDateBox;
     public DatePicker endDateBox;
     public ComboBox<LocalTime> startTimeComboBox;
@@ -77,6 +74,18 @@ public class AddAppointment implements Initializable {
         Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
         Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));
 
+       boolean isMyUserComboBoxEmpty = userIdComboBox.getSelectionModel().isEmpty();
+       boolean isMyCustomerComboBoxEmpty = customerIdComboBox.getSelectionModel().isEmpty();
+       boolean isMyContactComboBoxEmpty = contactIDComboBox.getSelectionModel().isEmpty();
+       boolean isMyStartTimeComboBoxEmpty = startTimeComboBox.getSelectionModel().isEmpty();
+
+
+       //boolean isMyStartDateEmpty =
+
+
+
+
+
 
 
        // LocalDateTime startDT = LocalDateTime.of(AppointmentsCRUD.getAllStartTimes());
@@ -102,7 +111,47 @@ public class AddAppointment implements Initializable {
        if (titleBox.getText().isEmpty()) {
            Alert alert = new Alert(Alert.AlertType.WARNING);
            alert.setTitle("Warning Dialog");
-           alert.setContentText("Add Name");
+           alert.setContentText("Please Enter an Appointment Title");
+           alert.showAndWait();
+       } else if (descriptionBox.getText().isEmpty()) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Enter an Appointment Description");
+           alert.showAndWait();
+       } else if (locationBox.getText().isEmpty()) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Enter an Appointment Location");
+           alert.showAndWait();
+       } else if (typeBox.getText().isEmpty()) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Enter an Appointment Type");
+           alert.showAndWait();
+       } else if (isMyUserComboBoxEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a User");
+           alert.showAndWait();
+       } else if (isMyCustomerComboBoxEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a Customer");
+           alert.showAndWait();
+       } else if (isMyContactComboBoxEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a Contact");
+           alert.showAndWait();
+       } else if (isMyStartTimeComboBoxEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a Start Time");
+           alert.showAndWait();
+       } else if (startDateBox.getValue() == null) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a Start Date");
            alert.showAndWait();
        } else {
            AppointmentsCRUD.insertAppointment(titleBox.getText(),

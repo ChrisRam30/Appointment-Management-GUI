@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 import helper.AppointmentsCRUD;
@@ -56,6 +58,23 @@ public class AppointmentMenu implements Initializable {
         endDateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
+        LocalTime currentTime = LocalTime.now();
+        long timeDifference = ChronoUnit.MINUTES.between(startDateTimeColumn, currentTime);
+        long interval = (timeDifference + -1) * -1;
+
+        if(interval > 0 && interval <=15) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Appointment Warning");
+            alert.setContentText("Appointment in 15 Minutes");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("No Upcoming Appointments");
+            alert.showAndWait();
+        }
+)
 
 
 

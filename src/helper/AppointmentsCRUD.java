@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointments;
 import model.Contacts;
+import model.MonthCustomerCount;
 import model.MonthTypeCount;
 
 public class AppointmentsCRUD {
@@ -261,93 +262,26 @@ public class AppointmentsCRUD {
         return cList;
     }
 
-    public static ObservableList<Appointments> getAppointmentsByMonth(Timestamp date) {
-        ObservableList<Appointments> cList = FXCollections.observableArrayList();
+    public static ObservableList<MonthCustomerCount> getAppointmentMCCount() {
+
+        ObservableList<MonthCustomerCount> cList = FXCollections.observableArrayList();
 
         try {
-            String SQL = "SELECT start FROM APPOINTMENTS WHERE MONTH(start) = ?";
+            String SQL = "SELECT Monthname(start) AS MN, Customer_ID, COUNT(Customer_ID) AS CT FROM appointments GROUP BY Monthname(start), Customer_ID";
             PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
-            ps.setTimestamp(1,date);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int appointmentId = rs.getInt("Appointment_ID");
-                String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
-                int contact = rs.getInt("Contact_ID");
-                String type = rs.getString("Type");
-                Timestamp startDateTime = rs.getTimestamp("Start");
-                Timestamp endDateTime = rs.getTimestamp("End");
                 int customerId = rs.getInt("Customer_ID");
-                int UserId = rs.getInt("User_ID");
+                String monthName = rs.getString("MN");
+                int count = rs.getInt("CT");
 
-                Appointments c = new Appointments(appointmentId, title, description, location, contact, type, startDateTime,
-                        endDateTime, customerId, UserId);
+                MonthCustomerCount c = new MonthCustomerCount(monthName, customerId, count);
                 cList.add(c);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return cList;
-    }
-
-    public static ObservableList<Appointments> getAllStartTimes() {
-
-        ObservableList<Appointments> tList = FXCollections.observableArrayList();
-        try {
-            String SQL = "SELECT Start FROM APPOINTMENTS";
-            PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery(SQL);
-
-            while (rs.next()) {
-                int appointmentId = rs.getInt("Appointment_ID");
-                String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
-                int contact = rs.getInt("Contact_ID");
-                String type = rs.getString("Type");
-                Timestamp startDateTime = rs.getTimestamp("Start");
-                Timestamp endDateTime = rs.getTimestamp("End");
-                int customerId = rs.getInt("Customer_ID");
-                int UserId = rs.getInt("User_ID");
-
-                Appointments a = new Appointments(appointmentId, title, description, location, contact, type, startDateTime,
-                        endDateTime, customerId, UserId);
-                tList.add(a);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return tList;
-    }
-    public static ObservableList<Appointments> getAllEndTimes() {
-
-        ObservableList<Appointments> tList = FXCollections.observableArrayList();
-        try {
-            String SQL = "SELECT end FROM APPOINTMENTS";
-            PreparedStatement ps = JDBC.connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery(SQL);
-
-            while (rs.next()) {
-                int appointmentId = rs.getInt("Appointment_ID");
-                String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
-                int contact = rs.getInt("Contact_ID");
-                String type = rs.getString("Type");
-                Timestamp startDateTime = rs.getTimestamp("Start");
-                Timestamp endDateTime = rs.getTimestamp("End");
-                int customerId = rs.getInt("Customer_ID");
-                int UserId = rs.getInt("User_ID");
-
-                Appointments a = new Appointments(appointmentId, title, description, location, contact, type, startDateTime,
-                        endDateTime, customerId, UserId);
-                tList.add(a);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return tList;
     }
 }

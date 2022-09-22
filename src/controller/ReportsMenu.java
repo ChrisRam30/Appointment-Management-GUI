@@ -13,6 +13,7 @@ public class ReportsMenu {
     public Button contactScheduleBox;
     public Button backToAppointments;
     public Button typeAppointmentBox1;
+    public Button appointmentsMCButton;
 
     public void contactScheduleBoxClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/contactsReport.fxml"));
@@ -41,6 +42,15 @@ public class ReportsMenu {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Type Reports");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void appointmentsMCButtonClick(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/monthlyCustomerAppointmentReport.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Customer Appointments by Month");
         stage.setScene(scene);
         stage.show();
     }

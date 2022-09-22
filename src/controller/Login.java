@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -45,8 +46,9 @@ public class Login implements Initializable {
             timeZoneLabel.setText(rb.getString("timeZoneLabel"));
             Close.setText(rb.getString("Close"));
             displayLanguage.setText(rb.getString("displayLang"));
-
         }
+
+
 
     }
 
