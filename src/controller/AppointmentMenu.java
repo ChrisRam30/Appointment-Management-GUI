@@ -59,7 +59,8 @@ public class AppointmentMenu implements Initializable {
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-        LocalTime currentTime = LocalTime.now();
+
+        /*LocalTime currentTime = LocalTime.now();
         long timeDifference = ChronoUnit.MINUTES.between(startDateTimeColumn, currentTime);
         long interval = (timeDifference + -1) * -1;
 
@@ -73,8 +74,7 @@ public class AppointmentMenu implements Initializable {
             alert.setTitle("Warning Dialog");
             alert.setContentText("No Upcoming Appointments");
             alert.showAndWait();
-        }
-)
+        }*/
 
 
 

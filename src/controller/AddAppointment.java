@@ -1,6 +1,7 @@
 package controller;
 
 
+import Lambdas.Notification_Interface;
 import helper.AppointmentsCRUD;
 import helper.ContactsCRUD;
 import helper.CustomerCRUD;
@@ -79,17 +80,8 @@ public class AddAppointment implements Initializable {
        boolean isMyContactComboBoxEmpty = contactIDComboBox.getSelectionModel().isEmpty();
        boolean isMyStartTimeComboBoxEmpty = startTimeComboBox.getSelectionModel().isEmpty();
 
+       //boolean isMyStartDateEmpty = //Not sure what to add here in order to check if datepicker is empty
 
-       //boolean isMyStartDateEmpty =
-
-
-
-
-
-
-
-       // LocalDateTime startDT = LocalDateTime.of(AppointmentsCRUD.getAllStartTimes());
-        //LocalDateTime endDT = LocalDateTime.of(AppointmentsCRUD.getAllEndTimes());
 
         LocalDateTime mystartDT = LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue());
         LocalDateTime myEndDT = LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue());
@@ -108,25 +100,31 @@ public class AddAppointment implements Initializable {
                 return;
             }
         }
+        //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
        if (titleBox.getText().isEmpty()) {
+           Notification_Interface notification = ()->{
+               String sentence = "Please Enter a Title";
+
+               return sentence;
+           };
            Alert alert = new Alert(Alert.AlertType.WARNING);
            alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter an Appointment Title");
+           alert.setContentText(notification.getMessage());
            alert.showAndWait();
        } else if (descriptionBox.getText().isEmpty()) {
            Alert alert = new Alert(Alert.AlertType.WARNING);
            alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter an Appointment Description");
+           alert.setContentText("Please Enter a Description");
            alert.showAndWait();
        } else if (locationBox.getText().isEmpty()) {
            Alert alert = new Alert(Alert.AlertType.WARNING);
            alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter an Appointment Location");
+           alert.setContentText("Please Enter a Location");
            alert.showAndWait();
        } else if (typeBox.getText().isEmpty()) {
            Alert alert = new Alert(Alert.AlertType.WARNING);
            alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter an Appointment Type");
+           alert.setContentText("Please Enter a Type");
            alert.showAndWait();
        } else if (isMyUserComboBoxEmpty) {
            Alert alert = new Alert(Alert.AlertType.WARNING);
