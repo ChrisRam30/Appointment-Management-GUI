@@ -1,6 +1,7 @@
 package controller;
 
 
+import helper.AppointmentsCRUD;
 import helper.JDBC;
 import helper.UserCRUD;
 import javafx.event.ActionEvent;
@@ -10,14 +11,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.User;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Login implements Initializable {
@@ -57,12 +62,36 @@ public class Login implements Initializable {
     public void loginButtonAction(ActionEvent actionEvent) throws SQLException {
 
         try {
-            String sql = "SELECT * FROM USERS WHERE User_Name=? AND Password =?;";
-            PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
-            preparedStatement.setString(1, userNameField.getText());
-            preparedStatement.setString(2, passwordField.getText());
-            ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next() == true) {
+            User vUser = UserCRUD.validateUser(userNameField.getText(), passwordField.getText());
+            if (vUser != null) {
+
+                LocalDateTime currentTime = LocalDateTime.now();
+                LocalDateTime laterTime = currentTime.plusMinutes(15);
+                boolean noUpcoming = true;
+
+                for(Appointments appt : AppointmentsCRUD.getAllAppointments()) {
+                    if(vUser.getId() == appt.getUserId()) {
+                        if((appt.getStartDateTime().toLocalDateTime().isEqual(currentTime) ||
+                                appt.getStartDateTime().toLocalDateTime().isAfter(currentTime))
+                        && (appt.getStartDateTime().toLocalDateTime().isEqual(laterTime) ||
+                                appt.getStartDateTime().toLocalDateTime().isBefore(laterTime))){
+                            noUpcoming = false;
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Appointment Warning");
+                            alert.setContentText("Appointment in 15 Minutes\n ID:"+ appt.getAppointmentId() + " " + appt.getStartDateTime());
+                            alert.showAndWait();
+                            break;
+                        }
+                    }
+                }
+
+                if(noUpcoming) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning Dialog");
+                    alert.setContentText("No Upcoming Appointments");
+                    alert.showAndWait();
+                }
+
                 Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
                 Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
@@ -79,6 +108,7 @@ public class Login implements Initializable {
             }catch (Exception e) {
             System.out.println("Exception:" + e.getMessage());
         }
+
         }
 
     public void languageTabAction(ActionEvent actionEvent) {

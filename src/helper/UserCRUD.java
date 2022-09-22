@@ -11,6 +11,20 @@ import java.sql.SQLException;
 
 public class UserCRUD {
 
+    public static User validateUser(String userName, String password) throws SQLException {
+        String sql = "SELECT * FROM USERS WHERE User_Name=? AND Password =?;";
+        PreparedStatement preparedStatement = JDBC.connection.prepareStatement(sql);
+        preparedStatement.setString(1, userName);
+        preparedStatement.setString(2, password);
+        ResultSet rs = preparedStatement.executeQuery();
+        if(rs.next()) {
+            int userId = rs.getInt("User_ID");
+            User valUser = new User(userId, userName, password);
+            return valUser;
+        }
+        return null;
+    }
+
     public static ObservableList<User> getAllUsers() {
         ObservableList<User> uList = FXCollections.observableArrayList();
         try {

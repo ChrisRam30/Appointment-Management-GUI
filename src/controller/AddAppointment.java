@@ -72,15 +72,78 @@ public class AddAppointment implements Initializable {
 
    public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {    //working on this method to at time exception
 
-        Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
-        Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));
+       boolean isMyStartDateEmpty = startDateBox.getValue() == null;
+       if (isMyStartDateEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a Start Date");
+           alert.showAndWait();
+       }
 
        boolean isMyUserComboBoxEmpty = userIdComboBox.getSelectionModel().isEmpty();
        boolean isMyCustomerComboBoxEmpty = customerIdComboBox.getSelectionModel().isEmpty();
        boolean isMyContactComboBoxEmpty = contactIDComboBox.getSelectionModel().isEmpty();
        boolean isMyStartTimeComboBoxEmpty = startTimeComboBox.getSelectionModel().isEmpty();
 
-       //boolean isMyStartDateEmpty = //Not sure what to add here in order to check if datepicker is empty
+       //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
+       if (titleBox.getText().isEmpty()) {
+           Notification_Interface notification = ()->{
+               String sentence = "Please Enter a Title";
+
+               return sentence;
+           };
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText(notification.getMessage());
+           alert.showAndWait();
+       } else if (descriptionBox.getText().isEmpty()) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Enter a Description");
+           alert.show();
+           return;
+       } else if (locationBox.getText().isEmpty()) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Enter a Location");
+           alert.show();
+           return;
+       } else if (typeBox.getText().isEmpty()) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Enter a Type");
+           alert.show();
+           return;
+       } else if (isMyUserComboBoxEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a User");
+           alert.showAndWait();
+       } else if (isMyCustomerComboBoxEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a Customer");
+           alert.show();
+           return;
+       } else if (isMyContactComboBoxEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a Contact");
+           alert.show();
+           return;
+       } else if (isMyStartTimeComboBoxEmpty) {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Warning Dialog");
+           alert.setContentText("Please Select a Start Time");
+           alert.show();
+           return;
+       }
+
+       Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
+       Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));
+
+
+
 
 
         LocalDateTime mystartDT = LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue());
@@ -100,59 +163,7 @@ public class AddAppointment implements Initializable {
                 return;
             }
         }
-        //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
-       if (titleBox.getText().isEmpty()) {
-           Notification_Interface notification = ()->{
-               String sentence = "Please Enter a Title";
-
-               return sentence;
-           };
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText(notification.getMessage());
-           alert.showAndWait();
-       } else if (descriptionBox.getText().isEmpty()) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter a Description");
-           alert.showAndWait();
-       } else if (locationBox.getText().isEmpty()) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter a Location");
-           alert.showAndWait();
-       } else if (typeBox.getText().isEmpty()) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter a Type");
-           alert.showAndWait();
-       } else if (isMyUserComboBoxEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a User");
-           alert.showAndWait();
-       } else if (isMyCustomerComboBoxEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a Customer");
-           alert.showAndWait();
-       } else if (isMyContactComboBoxEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a Contact");
-           alert.showAndWait();
-       } else if (isMyStartTimeComboBoxEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a Start Time");
-           alert.showAndWait();
-       } else if (startDateBox.getValue() == null) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a Start Date");
-           alert.showAndWait();
-       } else {
-           AppointmentsCRUD.insertAppointment(titleBox.getText(),
+        AppointmentsCRUD.insertAppointment(titleBox.getText(),
                    descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
                    starttime, endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
                    contactIDComboBox.getValue().getContactId());
@@ -163,7 +174,7 @@ public class AddAppointment implements Initializable {
            stage.setTitle("Appointment Menu");
            stage.setScene(scene);
            stage.show();
-       }
+
 
     }
 
