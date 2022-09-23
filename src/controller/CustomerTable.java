@@ -8,9 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointments;
@@ -21,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomerTable implements Initializable {
@@ -89,11 +88,18 @@ public class CustomerTable implements Initializable {
     }
 
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
-
         Customers CP = customerTable.getSelectionModel().getSelectedItem();
 
-        CustomerCRUD.deleteCustomer(CP.getCustomerId());
-        customerTable.setItems(CustomerCRUD.getAllCustomers());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Customer Delete Confimation");
+        alert.setContentText("This will Delete all Appointments as well as Customer records, would you like to proceed?");
+        Optional<ButtonType> confirmation = alert.showAndWait();
+
+        if (confirmation.get() == ButtonType.OK) {
+            CustomerCRUD.deleteCustomer(CP.getCustomerId());
+            customerTable.setItems(CustomerCRUD.getAllCustomers());
+
+        }
     }
 
 }
