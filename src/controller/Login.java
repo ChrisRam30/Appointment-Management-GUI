@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 import model.Appointments;
 import model.User;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,7 +63,7 @@ public class Login implements Initializable {
 
 
 
-    public void loginButtonAction(ActionEvent actionEvent) throws SQLException {
+    public void loginButtonAction(ActionEvent actionEvent) throws SQLException, IOException {
 
         try {
             User vUser = UserCRUD.validateUser(userNameField.getText(), passwordField.getText());
@@ -108,6 +112,9 @@ public class Login implements Initializable {
             }catch (Exception e) {
             System.out.println("Exception:" + e.getMessage());
         }
+        String userName = userNameField.getText();
+
+        loginTracker(userName, true);
 
         }
 
@@ -124,5 +131,19 @@ public class Login implements Initializable {
             Locale.setDefault(new Locale("en", "US")); //used to check if languages are auto changing
             System.exit(0);
         }
+    }
+
+    public void  loginTracker(String userName, boolean login) throws IOException {
+        String filename = "login_activity.txt";
+        Scanner keyboard = new Scanner(System.in);
+        FileWriter fileWriter = new FileWriter(filename, true);
+        PrintWriter outputFile = new PrintWriter(fileWriter);
+        if (login == true) {
+            outputFile.println(userName + " " + LocalDate.now() + " " + LocalTime.now() + " Login Success!");
+        }
+        if (login == false) {
+            outputFile.println(userName + " " + LocalDate.now() + " " + LocalTime.now() + " Login Failure.");
+        }
+        outputFile.close();
     }
 }
