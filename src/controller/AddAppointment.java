@@ -89,13 +89,13 @@ public class AddAppointment implements Initializable {
        if (titleBox.getText().isEmpty()) {
            Notification_Interface notification = ()->{
                String sentence = "Please Enter a Title";
-
                return sentence;
            };
            Alert alert = new Alert(Alert.AlertType.WARNING);
            alert.setTitle("Warning Dialog");
            alert.setContentText(notification.getMessage());
-           alert.showAndWait();
+           alert.show();
+           return;
        } else if (descriptionBox.getText().isEmpty()) {
            Alert alert = new Alert(Alert.AlertType.WARNING);
            alert.setTitle("Warning Dialog");

@@ -1,5 +1,6 @@
 package controller;
 
+import Lambdas.Notification_Interface;
 import helper.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -95,12 +96,80 @@ public class modifyAppointment implements Initializable {
         int contactId = modifyContactIDComboBox.getValue().getContactId();
         int appointmentId = Integer.parseInt(modifyAppointmentIdBox.getText());
 
+        boolean isMyStartDateEmpty = modifyStartDateBox.getValue() == null;
+        if (isMyStartDateEmpty) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a Start Date");
+            alert.showAndWait();
+        }
+
+        boolean isMyUserComboBoxEmpty = modifyUserIdComboBox.getSelectionModel().isEmpty();
+        boolean isMyCustomerComboBoxEmpty = modifyCustomerIdComboBox.getSelectionModel().isEmpty();
+        boolean isMyContactComboBoxEmpty = modifyContactIDComboBox.getSelectionModel().isEmpty();
+        boolean isMyStartTimeComboBoxEmpty = modifyStartTimeComboBox.getSelectionModel().isEmpty();
+
+        //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
+        if (modifyTitleBox.getText().isEmpty()) {
+            Notification_Interface notification = ()->{
+                String sentence = "Please Enter a Title";
+
+                return sentence;
+            };
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText(notification.getMessage());
+            alert.show();
+            return;
+        } else if (modifyDescriptionBox.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Enter a Description");
+            alert.show();
+            return;
+        } else if (modifyLocationBox.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Enter a Location");
+            alert.show();
+            return;
+        } else if (modifyTypeBox.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Enter a Type");
+            alert.show();
+            return;
+        } else if (isMyUserComboBoxEmpty) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a User");
+            alert.showAndWait();
+        } else if (isMyCustomerComboBoxEmpty) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a Customer");
+            alert.show();
+            return;
+        } else if (isMyContactComboBoxEmpty) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a Contact");
+            alert.show();
+            return;
+        } else if (isMyStartTimeComboBoxEmpty) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a Start Time");
+            alert.show();
+            return;
+        }
+
 
         LocalDateTime mystartDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue());
         LocalDateTime myEndDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue());
 
         for (Appointments appt:AppointmentsCRUD.getAllAppointments()) {
-            if (appt.getCustomerId() != customerId)
+            if (appt.getCustomerId() != customerId && appt.getAppointmentId() != appointmentId)
                 continue;
             if(myEndDT.isBefore(appt.getStartDateTime().toLocalDateTime()) || myEndDT.isEqual(appt.getStartDateTime().toLocalDateTime()) ||
                     mystartDT.isAfter(appt.getEndDateTime().toLocalDateTime()) || mystartDT.isEqual(appt.getEndDateTime().toLocalDateTime())) {
