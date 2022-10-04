@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -84,7 +85,10 @@ public class modifyAppointment implements Initializable {
 
     public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
-        System.out.println(modifyCustomerIdComboBox.getValue().getCustomerId());
+        boolean isMyUserComboBoxEmpty = modifyUserIdComboBox.getSelectionModel().isEmpty();
+        boolean isMyCustomerComboBoxEmpty = modifyCustomerIdComboBox.getSelectionModel().isEmpty();
+        boolean isMyContactComboBoxEmpty = modifyContactIDComboBox.getSelectionModel().isEmpty();
+        boolean isMyStartTimeComboBoxEmpty = modifyStartTimeComboBox.getSelectionModel().isEmpty();
 
         String title = modifyTitleBox.getText();
         String description = modifyDescriptionBox.getText();
@@ -105,10 +109,50 @@ public class modifyAppointment implements Initializable {
             alert.showAndWait();
         }
 
-        boolean isMyUserComboBoxEmpty = modifyUserIdComboBox.getSelectionModel().isEmpty();
-        boolean isMyCustomerComboBoxEmpty = modifyCustomerIdComboBox.getSelectionModel().isEmpty();
-        boolean isMyContactComboBoxEmpty = modifyContactIDComboBox.getSelectionModel().isEmpty();
-        boolean isMyStartTimeComboBoxEmpty = modifyStartTimeComboBox.getSelectionModel().isEmpty();
+
+
+
+        LocalDateTime mystartDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue());
+        LocalDateTime myEndDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue());
+
+        for (Appointments appt:AppointmentsCRUD.getAllAppointments()) {
+            if (appt.getCustomerId() == customerId && appt.getAppointmentId() == appointmentId)
+                continue;
+            if(myEndDT.isBefore(appt.getStartDateTime().toLocalDateTime()) || myEndDT.isEqual(appt.getStartDateTime().toLocalDateTime()) ||
+                    mystartDT.isAfter(appt.getEndDateTime().toLocalDateTime()) || mystartDT.isEqual(appt.getEndDateTime().toLocalDateTime())) {
+                continue;
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Conflict of Appointments");
+                alert.show();
+                return;
+            }
+        }
+
+        if(modifyStartTimeComboBox.getValue().isAfter(modifyEndTimeComboBox.getValue())||modifyStartTimeComboBox.getValue().equals(modifyEndTimeComboBox.getValue())){
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Start time must be before end time.");
+            alert.showAndWait();
+            return;
+        }
+
+        if(modifyStartDateBox.getValue().isBefore(LocalDate.now())){
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Date cannot be before current date.");
+            alert.showAndWait();
+            return;
+        }
+        AppointmentsCRUD.modifyAppointment( title,  description,  location, type,  startTime,  endTime,
+                customerId,  userId,  contactId,  appointmentId);
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Appointment Menu");
+        stage.setScene(scene);
+        stage.show();
 
         //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
         if (modifyTitleBox.getText().isEmpty()) {
@@ -163,33 +207,6 @@ public class modifyAppointment implements Initializable {
             alert.show();
             return;
         }
-
-
-        LocalDateTime mystartDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue());
-        LocalDateTime myEndDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue());
-
-        for (Appointments appt:AppointmentsCRUD.getAllAppointments()) {
-            if (appt.getCustomerId() != customerId && appt.getAppointmentId() != appointmentId)
-                continue;
-            if(myEndDT.isBefore(appt.getStartDateTime().toLocalDateTime()) || myEndDT.isEqual(appt.getStartDateTime().toLocalDateTime()) ||
-                    mystartDT.isAfter(appt.getEndDateTime().toLocalDateTime()) || mystartDT.isEqual(appt.getEndDateTime().toLocalDateTime())) {
-                continue;
-            }
-            else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Conflict of Appointments");
-                alert.show();
-                return;
-            }
-        }
-        AppointmentsCRUD.modifyAppointment( title,  description,  location, type,  startTime,  endTime,
-                customerId,  userId,  contactId,  appointmentId);
-
-        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Appointment Menu");
-        stage.setScene(scene);
-        stage.show();
 
 
 

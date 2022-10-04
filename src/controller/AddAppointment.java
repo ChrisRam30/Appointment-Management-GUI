@@ -24,6 +24,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Locale;
@@ -163,6 +164,22 @@ public class AddAppointment implements Initializable {
                 return;
             }
         }
+
+       if(startTimeComboBox.getValue().isAfter(endTimeComboBox.getValue())||startTimeComboBox.getValue().equals(endTimeComboBox.getValue())){
+
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setContentText("Start time must be before end time.");
+           alert.showAndWait();
+           return;
+       }
+
+       if(startDateBox.getValue().isBefore(LocalDate.now())){
+
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setContentText("Date cannot be before current date.");
+           alert.showAndWait();
+           return;
+       }
         AppointmentsCRUD.insertAppointment(titleBox.getText(),
                    descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
                    starttime, endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
