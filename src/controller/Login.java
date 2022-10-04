@@ -47,6 +47,7 @@ public class Login implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        //This labmda is utilized to update/convert zoneID's based on the local machines time and display it.
         TimeZone time = now -> {
             String product = now.toString();
             return product;
@@ -55,9 +56,6 @@ public class Login implements Initializable {
         timeZone.setText(time.getTime(ZoneId.systemDefault()));
 
         //timeZone.setText(ZoneId.systemDefault().toString());
-
-
-       // zoneIDLabel.setText(notification.getMessage(ZoneId.systemDefault()));
 
 
         if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
