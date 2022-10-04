@@ -1,8 +1,7 @@
 package controller;
 
-import Lambdas.Notification_Interface;
+import Lambdas.Warning_Interface;
 import helper.*;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -156,7 +155,7 @@ public class modifyAppointment implements Initializable {
 
         //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
         if (modifyTitleBox.getText().isEmpty()) {
-            Notification_Interface notification = ()->{
+            Warning_Interface notification = ()->{
                 String sentence = "Please Enter a Title";
                 return sentence;
             };

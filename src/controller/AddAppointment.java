@@ -1,12 +1,11 @@
 package controller;
 
 
-import Lambdas.Notification_Interface;
+import Lambdas.Warning_Interface;
 import helper.AppointmentsCRUD;
 import helper.ContactsCRUD;
 import helper.CustomerCRUD;
 import helper.UserCRUD;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,13 +20,11 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddAppointment implements Initializable {
@@ -88,7 +85,7 @@ public class AddAppointment implements Initializable {
 
        //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
        if (titleBox.getText().isEmpty()) {
-           Notification_Interface notification = ()->{
+           Warning_Interface notification = ()->{
                String sentence = "Please Enter a Title";
                return sentence;
            };

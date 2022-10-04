@@ -1,6 +1,7 @@
 package controller;
 
 
+import Lambdas.TimeZone;
 import helper.AppointmentsCRUD;
 import helper.JDBC;
 import helper.UserCRUD;
@@ -45,7 +46,19 @@ public class Login implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        timeZone.setText(ZoneId.systemDefault().toString());
+
+        TimeZone time = now -> {
+            String product = now.toString();
+            return product;
+        };
+
+        timeZone.setText(time.getTime(ZoneId.systemDefault()));
+
+        //timeZone.setText(ZoneId.systemDefault().toString());
+
+
+       // zoneIDLabel.setText(notification.getMessage(ZoneId.systemDefault()));
+
 
         if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
             userNameLabel.setText(rb.getString("userName"));
