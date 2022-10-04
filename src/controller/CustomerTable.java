@@ -73,32 +73,47 @@ public class CustomerTable implements Initializable {
     }
 
     public void modifyCustomerButtonClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/modifyCustomer.fxml"));
-        loader.load();
-        ModifyCustomer modAppController = loader.getController();
-        modAppController.receiveCustomerData(customerTable.getSelectionModel().getSelectedItem());
+        if (customerTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Select a Customer to Modify.");
+            alert.showAndWait();
+
+        } else {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/modifyCustomer.fxml"));
+            loader.load();
+            ModifyCustomer modAppController = loader.getController();
+            modAppController.receiveCustomerData(customerTable.getSelectionModel().getSelectedItem());
 
 
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        stage.setTitle("Modify Customer");
-        stage.setScene(new Scene(scene));
-        stage.show();
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setTitle("Modify Customer");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
         Customers CP = customerTable.getSelectionModel().getSelectedItem();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Customer Delete Confimation");
-        alert.setContentText("This will Delete all Appointments as well as Customer records, would you like to proceed?");
-        Optional<ButtonType> confirmation = alert.showAndWait();
+        if (CP == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Select a Customer to delete.");
+            alert.showAndWait();
+        } else {
 
-        if (confirmation.get() == ButtonType.OK) {
-            CustomerCRUD.deleteCustomer(CP.getCustomerId());
-            customerTable.setItems(CustomerCRUD.getAllCustomers());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Customer Delete Confimation");
+            alert.setContentText("This will Delete all Appointments as well as Customer records, would you like to proceed?");
+            Optional<ButtonType> confirmation = alert.showAndWait();
 
+            if (confirmation.get() == ButtonType.OK) {
+                CustomerCRUD.deleteCustomer(CP.getCustomerId());
+                customerTable.setItems(CustomerCRUD.getAllCustomers());
+
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import helper.AppointmentsCRUD;
@@ -88,28 +89,48 @@ public class AppointmentMenu implements Initializable {
     }
 
     public void modifyAppointmentClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        //Parent root = FXMLLoader.load(getClass().getResource("/view/modifyAppointment.fxml"));
-        loader.setLocation(getClass().getResource("/view/modifyAppointment.fxml"));
-        loader.load();
-        modifyAppointment modAppController = loader.getController();
-        modAppController.receiveAppointmentData(appointmentTable.getSelectionModel().getSelectedItem());
+        if (appointmentTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Select an Appointment to Modify.");
+            alert.showAndWait();
+
+        } else {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/modifyAppointment.fxml"));
+            loader.load();
+            modifyAppointment modAppController = loader.getController();
+            modAppController.receiveAppointmentData(appointmentTable.getSelectionModel().getSelectedItem());
 
 
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        stage.setTitle("Modify Appointment");
-        stage.setScene(new Scene(scene));
-        stage.show();
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setTitle("Modify Appointment");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     public void deleteAppointmentClick(ActionEvent actionEvent) throws SQLException {
 
         Appointments AP = appointmentTable.getSelectionModel().getSelectedItem();
 
-        AppointmentsCRUD.deleteAppointment(AP.getAppointmentId());
-        appointmentTable.setItems(AppointmentsCRUD.getAllAppointments());
+        if(AP == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Select Appointment to delete.");
+            alert.showAndWait();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Appointment delete Confirmation");
+            alert.setContentText("Are you sure you want to delete this Appointment?");
+            Optional<ButtonType> confirmation = alert.showAndWait();
 
+            if (confirmation.get() == ButtonType.OK) {
+                AppointmentsCRUD.deleteAppointment(AP.getAppointmentId());
+                appointmentTable.setItems(AppointmentsCRUD.getAllAppointments());
+            }
+        }
     }
 
     public void logoutClick(ActionEvent actionEvent) throws IOException {
