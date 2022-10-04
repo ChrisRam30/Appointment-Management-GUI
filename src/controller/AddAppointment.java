@@ -67,8 +67,8 @@ public class AddAppointment implements Initializable {
 
     }
 
-
-   public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {    //working on this method to at time exception
+    //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
+   public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
        boolean isMyStartDateEmpty = startDateBox.getValue() == null;
        if (isMyStartDateEmpty) {
@@ -83,7 +83,6 @@ public class AddAppointment implements Initializable {
        boolean isMyContactComboBoxEmpty = contactIDComboBox.getSelectionModel().isEmpty();
        boolean isMyStartTimeComboBoxEmpty = startTimeComboBox.getSelectionModel().isEmpty();
 
-       //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
        if (titleBox.getText().isEmpty()) {
            Warning_Interface notification = ()->{
                String sentence = "Please Enter a Title";
