@@ -84,24 +84,79 @@ public class modifyAppointment implements Initializable {
 
     public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
-        boolean isMyUserComboBoxEmpty = modifyUserIdComboBox.getSelectionModel().isEmpty();
-        boolean isMyCustomerComboBoxEmpty = modifyCustomerIdComboBox.getSelectionModel().isEmpty();
-        boolean isMyContactComboBoxEmpty = modifyContactIDComboBox.getSelectionModel().isEmpty();
-        boolean isMyStartTimeComboBoxEmpty = modifyStartTimeComboBox.getSelectionModel().isEmpty();
+        User user = modifyUserIdComboBox.getValue();
+        Customers customer = modifyCustomerIdComboBox.getValue();
+        Contacts contact = modifyContactIDComboBox.getValue();
+        LocalTime startLocalTime = modifyStartTimeComboBox.getValue();
+        LocalTime endLocalTime = modifyEndTimeComboBox.getValue();
 
         String title = modifyTitleBox.getText();
         String description = modifyDescriptionBox.getText();
         String location = modifyLocationBox.getText();
         String type = modifyTypeBox.getText();
-        Timestamp startTime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue()));
-        Timestamp endTime = Timestamp.valueOf(LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue()));
-        int customerId = modifyCustomerIdComboBox.getValue().getCustomerId();
-        int userId = modifyUserIdComboBox.getValue().getId();
-        int contactId = modifyContactIDComboBox.getValue().getContactId();
-        int appointmentId = Integer.parseInt(modifyAppointmentIdBox.getText());
 
-        boolean isMyStartDateEmpty = modifyStartDateBox.getValue() == null;
-        if (isMyStartDateEmpty) {
+        //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
+        if (title.isBlank()) {
+            Warning_Interface notification = ()->{
+                String sentence = "Please Enter a Title";
+                return sentence;
+            };
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText(notification.getMessage());
+            alert.show();
+            return;
+        } else if (description.isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Enter a Description");
+            alert.show();
+            return;
+        } else if (location.isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Enter a Location");
+            alert.show();
+            return;
+        } else if (type.isBlank()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Enter a Type");
+            alert.show();
+            return;
+        } else if (user == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a User");
+            alert.showAndWait();
+        } else if (customer == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a Customer");
+            alert.show();
+            return;
+        } else if (contact == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a Contact");
+            alert.show();
+            return;
+        } else if (startLocalTime == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please Select a Start Time");
+            alert.show();
+            return;
+        } else if (endLocalTime == null) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning Dialog");
+        alert.setContentText("Please Select a End Time");
+        alert.show();
+        return;
+    }
+
+        LocalDate startLocalDate = modifyStartDateBox.getValue();
+        if (startLocalDate == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
             alert.setContentText("Please Select a Start Date");
@@ -109,13 +164,16 @@ public class modifyAppointment implements Initializable {
         }
 
 
+        Timestamp startTime = Timestamp.valueOf(LocalDateTime.of(startLocalDate, startLocalTime));
+        Timestamp endTime = Timestamp.valueOf(LocalDateTime.of(startLocalDate, endLocalTime));
+        int customerId = modifyCustomerIdComboBox.getValue().getCustomerId();
+        int appointmentId = Integer.parseInt(modifyAppointmentIdBox.getText());
 
-
-        LocalDateTime mystartDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyStartTimeComboBox.getValue());
-        LocalDateTime myEndDT = LocalDateTime.of(modifyStartDateBox.getValue(), modifyEndTimeComboBox.getValue());
+        LocalDateTime mystartDT = LocalDateTime.of(startLocalDate, startLocalTime);
+        LocalDateTime myEndDT = LocalDateTime.of(startLocalDate, endLocalTime);
 
         for (Appointments appt:AppointmentsCRUD.getAllAppointments()) {
-            if (appt.getCustomerId() == customerId && appt.getAppointmentId() == appointmentId)
+            if (appt.getCustomerId() != customerId || appt.getAppointmentId() == appointmentId)
                 continue;
             if(myEndDT.isBefore(appt.getStartDateTime().toLocalDateTime()) || myEndDT.isEqual(appt.getStartDateTime().toLocalDateTime()) ||
                     mystartDT.isAfter(appt.getEndDateTime().toLocalDateTime()) || mystartDT.isEqual(appt.getEndDateTime().toLocalDateTime())) {
@@ -143,6 +201,10 @@ public class modifyAppointment implements Initializable {
             alert.showAndWait();
             return;
         }
+
+        int userId = modifyUserIdComboBox.getValue().getId();
+        int contactId = modifyContactIDComboBox.getValue().getContactId();
+
         AppointmentsCRUD.modifyAppointment( title,  description,  location, type,  startTime,  endTime,
                 customerId,  userId,  contactId,  appointmentId);
 
@@ -152,63 +214,6 @@ public class modifyAppointment implements Initializable {
         stage.setTitle("Appointment Menu");
         stage.setScene(scene);
         stage.show();
-
-        //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
-        if (modifyTitleBox.getText().isEmpty()) {
-            Warning_Interface notification = ()->{
-                String sentence = "Please Enter a Title";
-                return sentence;
-            };
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setContentText(notification.getMessage());
-            alert.show();
-            return;
-        } else if (modifyDescriptionBox.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setContentText("Please Enter a Description");
-            alert.show();
-            return;
-        } else if (modifyLocationBox.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setContentText("Please Enter a Location");
-            alert.show();
-            return;
-        } else if (modifyTypeBox.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setContentText("Please Enter a Type");
-            alert.show();
-            return;
-        } else if (isMyUserComboBoxEmpty) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setContentText("Please Select a User");
-            alert.showAndWait();
-        } else if (isMyCustomerComboBoxEmpty) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setContentText("Please Select a Customer");
-            alert.show();
-            return;
-        } else if (isMyContactComboBoxEmpty) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setContentText("Please Select a Contact");
-            alert.show();
-            return;
-        } else if (isMyStartTimeComboBoxEmpty) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setContentText("Please Select a Start Time");
-            alert.show();
-            return;
-        }
-
-
-
 
     }
 
