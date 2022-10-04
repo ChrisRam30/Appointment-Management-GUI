@@ -4,6 +4,7 @@ import helper.AppointmentsCRUD;
 import helper.CountriesCRUD;
 import helper.CustomerCRUD;
 import helper.DivisionCRUD;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -82,6 +83,11 @@ public class ModifyCustomer implements Initializable {
     }
 
     public void countryComboBoxClick(ActionEvent actionEvent) {
+        int countryId = countryComboBox.getValue().getCountryId();
+        ObservableList<Divisions> list = DivisionCRUD.getCountryDivisions(countryId);
+
+        stateProvinceComboBox.setItems(DivisionCRUD.getCountryDivisions(countryId));
+
     }
 
 }

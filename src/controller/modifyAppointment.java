@@ -39,13 +39,14 @@ public class modifyAppointment implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        LocalTime start = LocalTime.of(8,0);
-        LocalTime end = LocalTime.of(22,0);
+       LocalTime end = LocalTime.of(22,0);
 
         while(start.isBefore(end.plusSeconds(1))) {
             modifyStartTimeComboBox.getItems().add(start);
             modifyEndTimeComboBox.getItems().add(start);
             start = start.plusMinutes(10);
         }
+
         modifyStartTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
         modifyEndTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
 
@@ -113,7 +114,6 @@ public class modifyAppointment implements Initializable {
         if (modifyTitleBox.getText().isEmpty()) {
             Notification_Interface notification = ()->{
                 String sentence = "Please Enter a Title";
-
                 return sentence;
             };
             Alert alert = new Alert(Alert.AlertType.WARNING);
