@@ -88,7 +88,16 @@ public class AddAppointment implements Initializable {
             ZonedDateTime zonedendTime = end.atZone(zoneId);
             ZonedDateTime eastZoneTime = zonedStartTime.withZoneSameInstant(ZoneId.of("America/New_York"));
             ZonedDateTime eastEndZoneTime = zonedendTime.withZoneSameInstant(ZoneId.of("America/New_York"));
+            ZonedDateTime startBusinessHours = ZonedDateTime.of(start.toLocalDate(), LocalTime.of(8,0), ZoneId.of("America/New_York"));
+            ZonedDateTime endBusinessHours = startBusinessHours.plusHours(14);
+            
+            if (eastZoneTime.isBefore(startBusinessHours) || eastEndZoneTime.isAfter(endBusinessHours)) {
 
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Choose an appointment time between normal business hours (8AM-10PM EST)");
+                alert.showAndWait();
+                return;
+            }
 
             boolean isMyStartDateEmpty = startDateBox.getValue() == null;
             if (isMyStartDateEmpty) {
@@ -191,15 +200,6 @@ public class AddAppointment implements Initializable {
                 return;
             }
 
-            if (eastZoneTime.isBefore(ZonedDateTime.parse(startDateBox.getValue() + "T08:00:00.-05:00[America/New_York]")) ||
-                    eastEndZoneTime.isAfter(ZonedDateTime.parse(startDateBox.getValue() + "T22:00:00.-05:00[America/New_York]"))) {
-
-
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setContentText("Choose an appointment time between normal business hours (8AM-10PM EST)");
-                alert.showAndWait();
-                return;
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
