@@ -36,7 +36,8 @@ public class modifyAppointment implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       /*LocalTime start = LocalTime.of(8,0);
+
+        /*LocalTime start = LocalTime.of(8,0);
        LocalTime end = LocalTime.of(22,0);
 
         while(start.isBefore(end.plusSeconds(1))) {
