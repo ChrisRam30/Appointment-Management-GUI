@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 
 public class Appointments {
@@ -139,6 +140,18 @@ public class Appointments {
 
         return(Integer.toString(getContactId()));
 
+    }
+
+    public static ObservableList<LocalTime> getZoneTime() {
+        ObservableList<LocalTime> timeList = FXCollections.observableArrayList();
+        LocalTime start = LocalTime.of(1, 00);
+        LocalTime end = LocalTime.MIDNIGHT.minusHours(1);
+        while (start.isBefore(end.plusSeconds(1))) {
+            timeList.add(start);
+            start = start.plusMinutes(30);
+
+        }
+        return timeList;
     }
 
 }

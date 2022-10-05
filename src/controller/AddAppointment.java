@@ -22,9 +22,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddAppointment implements Initializable {
@@ -47,7 +46,8 @@ public class AddAppointment implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        LocalTime start = LocalTime.of(8,0);
+
+        /*LocalTime start = LocalTime.of(8,0);
         LocalTime end = LocalTime.of(22,0);
 
         while(start.isBefore(end.plusSeconds(1))) {
@@ -55,8 +55,12 @@ public class AddAppointment implements Initializable {
             endTimeComboBox.getItems().add(start);
             start = start.plusMinutes(10);
         }
+
         startTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
-        endTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));
+        endTimeComboBox.getSelectionModel().select(LocalTime.of(8,0));*/
+
+        startTimeComboBox.setItems(Appointments.getZoneTime());
+        endTimeComboBox.setItems(Appointments.getZoneTime());
 
         contactIDComboBox.setItems(ContactsCRUD.getAllContacts());
         customerIdComboBox.setItems(CustomerCRUD.getAllCustomers());
@@ -70,115 +74,143 @@ public class AddAppointment implements Initializable {
     //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
    public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
-       boolean isMyStartDateEmpty = startDateBox.getValue() == null;
-       if (isMyStartDateEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a Start Date");
-           alert.showAndWait();
-       }
+        LocalDateTime start = null;
+        LocalDateTime end = null;
 
-       boolean isMyUserComboBoxEmpty = userIdComboBox.getSelectionModel().isEmpty();
-       boolean isMyCustomerComboBoxEmpty = customerIdComboBox.getSelectionModel().isEmpty();
-       boolean isMyContactComboBoxEmpty = contactIDComboBox.getSelectionModel().isEmpty();
-       boolean isMyStartTimeComboBoxEmpty = startTimeComboBox.getSelectionModel().isEmpty();
-
-       if (titleBox.getText().isEmpty()) {
-           Warning_Interface notification = ()->{
-               String sentence = "Please Enter a Title";
-               return sentence;
-           };
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText(notification.getMessage());
-           alert.show();
-           return;
-       } else if (descriptionBox.getText().isEmpty()) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter a Description");
-           alert.show();
-           return;
-       } else if (locationBox.getText().isEmpty()) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter a Location");
-           alert.show();
-           return;
-       } else if (typeBox.getText().isEmpty()) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Enter a Type");
-           alert.show();
-           return;
-       } else if (isMyUserComboBoxEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a User");
-           alert.showAndWait();
-       } else if (isMyCustomerComboBoxEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a Customer");
-           alert.show();
-           return;
-       } else if (isMyContactComboBoxEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a Contact");
-           alert.show();
-           return;
-       } else if (isMyStartTimeComboBoxEmpty) {
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setTitle("Warning Dialog");
-           alert.setContentText("Please Select a Start Time");
-           alert.show();
-           return;
-       }
-
-       Timestamp starttime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
-       Timestamp endtime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));
+        try {
 
 
+            start = LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue());
+            end = LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue());
+
+            ZoneId zoneId = ZoneId.systemDefault();
+            ZonedDateTime zonedStartTime = start.atZone(zoneId);
+            ZonedDateTime zonedendTime = end.atZone(zoneId);
+            ZonedDateTime eastZoneTime = zonedStartTime.withZoneSameInstant(ZoneId.of("America/New_York"));
+            ZonedDateTime eastEndZoneTime = zonedendTime.withZoneSameInstant(ZoneId.of("America/New_York"));
 
 
-
-        LocalDateTime mystartDT = LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue());
-        LocalDateTime myEndDT = LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue());
-        int customerId = customerIdComboBox.getValue().getCustomerId();
-
-        for (Appointments appt:AppointmentsCRUD.getAllAppointments()) {
-            if (appt.getCustomerId() != customerId)
-                continue;
-            if(myEndDT.isBefore(appt.getStartDateTime().toLocalDateTime()) || myEndDT.isEqual(appt.getStartDateTime().toLocalDateTime()) ||
-            mystartDT.isAfter(appt.getEndDateTime().toLocalDateTime()) || mystartDT.isEqual(appt.getEndDateTime().toLocalDateTime())) {
-                continue;
+            boolean isMyStartDateEmpty = startDateBox.getValue() == null;
+            if (isMyStartDateEmpty) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Please Select a Start Date");
+                alert.showAndWait();
             }
-            else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Conflict of Appointments");
+
+            boolean isMyUserComboBoxEmpty = userIdComboBox.getSelectionModel().isEmpty();
+            boolean isMyCustomerComboBoxEmpty = customerIdComboBox.getSelectionModel().isEmpty();
+            boolean isMyContactComboBoxEmpty = contactIDComboBox.getSelectionModel().isEmpty();
+            boolean isMyStartTimeComboBoxEmpty = startTimeComboBox.getSelectionModel().isEmpty();
+
+            if (titleBox.getText().isEmpty()) {
+                Warning_Interface notification = () -> {
+                    String sentence = "Please Enter a Title";
+                    return sentence;
+                };
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText(notification.getMessage());
+                alert.show();
+                return;
+            } else if (descriptionBox.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Please Enter a Description");
+                alert.show();
+                return;
+            } else if (locationBox.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Please Enter a Location");
+                alert.show();
+                return;
+            } else if (typeBox.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Please Enter a Type");
+                alert.show();
+                return;
+            } else if (isMyUserComboBoxEmpty) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Please Select a User");
+                alert.showAndWait();
+            } else if (isMyCustomerComboBoxEmpty) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Please Select a Customer");
+                alert.show();
+                return;
+            } else if (isMyContactComboBoxEmpty) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Please Select a Contact");
+                alert.show();
+                return;
+            } else if (isMyStartTimeComboBoxEmpty) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setContentText("Please Select a Start Time");
                 alert.show();
                 return;
             }
+
+
+
+            LocalDateTime mystartDT = LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue());
+            LocalDateTime myEndDT = LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue());
+            int customerId = customerIdComboBox.getValue().getCustomerId();
+
+            for (Appointments appt : AppointmentsCRUD.getAllAppointments()) {
+                if (appt.getCustomerId() != customerId)
+                    continue;
+                if (myEndDT.isBefore(appt.getStartDateTime().toLocalDateTime()) || myEndDT.isEqual(appt.getStartDateTime().toLocalDateTime()) ||
+                        mystartDT.isAfter(appt.getEndDateTime().toLocalDateTime()) || mystartDT.isEqual(appt.getEndDateTime().toLocalDateTime())) {
+                    continue;
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Conflict of Appointments");
+                    alert.show();
+                    return;
+                }
+            }
+
+            if (startTimeComboBox.getValue().isAfter(endTimeComboBox.getValue()) || startTimeComboBox.getValue().equals(endTimeComboBox.getValue())) {
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Start time must be before end time.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (startDateBox.getValue().isBefore(LocalDate.now())) {
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Date cannot be before current date.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (eastZoneTime.isBefore(ZonedDateTime.parse(startDateBox.getValue() + "T08:00:00.-05:00[America/New_York]")) || eastEndZoneTime.isAfter(ZonedDateTime.parse(startDateBox.getValue() + "T22:00:00.-05:00[America/New_York]"))) {
+
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Choose an appointment time between normal business hours (8AM-10PM EST)");
+                alert.showAndWait();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-       if(startTimeComboBox.getValue().isAfter(endTimeComboBox.getValue())||startTimeComboBox.getValue().equals(endTimeComboBox.getValue())){
 
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setContentText("Start time must be before end time.");
-           alert.showAndWait();
-           return;
-       }
+       Timestamp startTime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), startTimeComboBox.getValue()));
+        Timestamp endTime = Timestamp.valueOf(LocalDateTime.of(startDateBox.getValue(), endTimeComboBox.getValue()));
 
-       if(startDateBox.getValue().isBefore(LocalDate.now())){
 
-           Alert alert = new Alert(Alert.AlertType.WARNING);
-           alert.setContentText("Date cannot be before current date.");
-           alert.showAndWait();
-           return;
-       }
-        AppointmentsCRUD.insertAppointment(titleBox.getText(),
+       AppointmentsCRUD.insertAppointment(titleBox.getText(),
                    descriptionBox.getText(), locationBox.getText(), typeBox.getText(),
-                   starttime, endtime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
+                   startTime, endTime, customerIdComboBox.getValue().getCustomerId(), userIdComboBox.getValue().getId(),
                    contactIDComboBox.getValue().getContactId());
 
            Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
