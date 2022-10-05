@@ -191,7 +191,8 @@ public class AddAppointment implements Initializable {
                 return;
             }
 
-            if (eastZoneTime.isBefore(ZonedDateTime.parse(startDateBox.getValue() + "T08:00:00.-05:00[America/New_York]")) || eastEndZoneTime.isAfter(ZonedDateTime.parse(startDateBox.getValue() + "T22:00:00.-05:00[America/New_York]"))) {
+            if (eastZoneTime.isBefore(ZonedDateTime.parse(startDateBox.getValue() + "T08:00:00.-05:00[America/New_York]")) ||
+                    eastEndZoneTime.isAfter(ZonedDateTime.parse(startDateBox.getValue() + "T22:00:00.-05:00[America/New_York]"))) {
 
 
                 Alert alert = new Alert(Alert.AlertType.WARNING);
