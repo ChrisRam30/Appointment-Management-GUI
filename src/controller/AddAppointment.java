@@ -26,6 +26,8 @@ import java.time.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
+/** This controller allows the creation of a new appointment */
 public class AddAppointment implements Initializable {
 
     public TextField appointmentIdBox;
@@ -43,7 +45,7 @@ public class AddAppointment implements Initializable {
     public ComboBox<Customers> customerIdComboBox;
     public ComboBox<User> userIdComboBox;
 
-
+    /**This method initializes the AddAppointment controller. This sets the combo boxes with the correct information from the DB.*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -71,7 +73,9 @@ public class AddAppointment implements Initializable {
 
     }
 
-    //LAMBDA USED HERE TO CREATE AN EASIER WAY TO GENERATE NOTIFICATIONS.
+    /** LAMBDA is used in the titlebox warning message, this method saves the new appointment data to the appointment table.
+     * This method will display if there are missing items or incorrect data in the data fields and display the proper warning message. The LAMDA is used for the titlebox warning message to create an easier way to generate the warning message.
+     */
    public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
         LocalDateTime start = null;
@@ -90,7 +94,7 @@ public class AddAppointment implements Initializable {
             ZonedDateTime eastEndZoneTime = zonedendTime.withZoneSameInstant(ZoneId.of("America/New_York"));
             ZonedDateTime startBusinessHours = ZonedDateTime.of(start.toLocalDate(), LocalTime.of(8,0), ZoneId.of("America/New_York"));
             ZonedDateTime endBusinessHours = startBusinessHours.plusHours(14);
-            
+
             if (eastZoneTime.isBefore(startBusinessHours) || eastEndZoneTime.isAfter(endBusinessHours)) {
 
                 Alert alert = new Alert(Alert.AlertType.WARNING);

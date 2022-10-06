@@ -143,7 +143,11 @@ public class Login implements Initializable {
             System.exit(0);
         }
     }
-
+/**This method tracks successful and failed logins.
+ * The login histor is stored in a file named login_activity.txt.
+ * @param userName Username that is inputed
+ * @param login If login was successful or failed.
+ * */
     public void  loginTracker(String userName, boolean login) throws IOException {
         String filename = "login_activity.txt";
         Scanner keyboard = new Scanner(System.in);

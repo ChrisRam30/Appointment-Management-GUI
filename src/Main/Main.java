@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.TimeZone;
 
+/**This class creates an appointment application*/
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
@@ -24,7 +25,7 @@ public class Main extends Application {
     }
 
 
-
+/**This is the main method. This is used to open a connection to the mysql workbench database via JDBC, this also sets the local timezone based on local computer settings. */
     public static void main(String[] args)  {
 
         //Locale.setDefault(new Locale("fr", "FR")); //used to check if languages are auto changing
