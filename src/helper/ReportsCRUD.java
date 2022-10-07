@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**Helper method for reading, updating, creating and deleting report related data
+ *
+ */
 public class ReportsCRUD {
     public static ObservableList<Appointments> getContactAppointments() {
 
