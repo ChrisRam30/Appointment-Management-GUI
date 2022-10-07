@@ -7,6 +7,9 @@ import javafx.collections.ObservableList;
 import model.Countries;
 import model.Divisions;
 
+/**Helper method to create, read, update and delete division data
+ *
+ */
 public class DivisionCRUD {
     public static ObservableList<Divisions> getAllDivisions() {
         ObservableList<Divisions> dList = FXCollections.observableArrayList();
@@ -28,7 +31,7 @@ public class DivisionCRUD {
         }
         return dList;
     }
-
+/**Method to get all the first level division data and country data based on division ID selected*/
     public static Divisions getDivisionByCountryId(int countryId) {
         try {
             String SQL = "SELECT D.* FROM first_level_divisions AS D INNER JOIN Countries AS C ON D.Country_ID = C.Country_ID AND D.Division_ID = ?";
@@ -48,6 +51,7 @@ public class DivisionCRUD {
         }
         return null;
     }
+    /**Method to gets all the first level division data based on country ID selected*/
     public static ObservableList<Divisions> getCountryDivisions(int countryId) {
         ObservableList<Divisions> dList = FXCollections.observableArrayList();
         try {
@@ -69,7 +73,7 @@ public class DivisionCRUD {
         }
         return dList;
     }
-
+/**method that gets all the first level division data based on divison ID selected*/
     public static Divisions getDivision(int divisionId) {
         try {
             String SQL = "SELECT * FROM first_level_divisions WHERE Division_ID = ?";

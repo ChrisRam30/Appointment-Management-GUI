@@ -3,6 +3,9 @@ package helper;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/**Helper method to access the SQL WORK BENCH DB
+ *
+ */
 public abstract class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -14,6 +17,9 @@ public abstract class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
+    /**method that opens the connection to the sql work bench DB
+     *
+     */
     public static void openConnection()
     {
         try {
@@ -26,7 +32,9 @@ public abstract class JDBC {
             System.out.println("Error:" + e.getMessage());
         }
     }
+/*Method that closes the sql workbench DB
 
+ */
     public static void closeConnection() {
         try {
             connection.close();
