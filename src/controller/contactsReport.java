@@ -20,7 +20,7 @@ import model.Contacts;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**This controller displays the reports by contact*/
 public class contactsReport implements Initializable {
     public TableColumn customerIdColumn;
     public TableColumn appointmentIdColumn;
@@ -32,7 +32,7 @@ public class contactsReport implements Initializable {
     public Button backToAppointmentsButton;
     public ComboBox<Contacts> contactComboBox;
     public TableView appointmentTable;
-
+/**This method initializes the controller and populates the appointment table*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -49,7 +49,7 @@ public class contactsReport implements Initializable {
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
     }
 
-
+/**This method takes you back to the reports menu*/
     public void backToAppointmentsButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -58,7 +58,7 @@ public class contactsReport implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+/*This method will display the selected contacts appointsments on click*/
     public void contactComboBoxClick(ActionEvent actionEvent) {
         appointmentTable.setItems(AppointmentsCRUD.getContactAppointments(contactComboBox.getValue().getContactId())); //work on this, not calling SQL correctly.
 

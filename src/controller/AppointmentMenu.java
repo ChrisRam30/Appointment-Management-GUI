@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+/**This controller displays all appointments and allows access to all other functionality of the application*/
 public class AppointmentMenu implements Initializable {
 
     public TableColumn titleColumn;
@@ -43,7 +44,7 @@ public class AppointmentMenu implements Initializable {
     public RadioButton viewByWeekRadioButton;
     public RadioButton viewByMonthRadioButton;
 
-
+/**This method initializes the controller and populates the appointment table with the appointment data from the SQL database*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -69,7 +70,7 @@ public class AppointmentMenu implements Initializable {
 
     }
 
-
+/**This method takes you to the reports menu page on click*/
     public void reportsClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -78,7 +79,7 @@ public class AppointmentMenu implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+/**This method takes you to the add appointment menu on click*/
     public void addAppointmentClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/addAppointment.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -87,7 +88,8 @@ public class AppointmentMenu implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+/**This method takes you to the modify appointment menu on click
+ * If no appointment is selected an error message will display*/
     public void modifyAppointmentClick(ActionEvent actionEvent) throws IOException {
         if (appointmentTable.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -110,7 +112,9 @@ public class AppointmentMenu implements Initializable {
             stage.show();
         }
     }
-
+/*This method allows you to delete an appointment on click
+If no appointment is selected a warning will display and confirmation will be asked when trying to delete an appointment
+ */
     public void deleteAppointmentClick(ActionEvent actionEvent) throws SQLException {
 
         Appointments AP = appointmentTable.getSelectionModel().getSelectedItem();
@@ -132,7 +136,7 @@ public class AppointmentMenu implements Initializable {
             }
         }
     }
-
+/**This method allows you to logout on click*/
     public void logoutClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -141,7 +145,7 @@ public class AppointmentMenu implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+/**This method takes you to the customer table on click*/
     public void customerTableButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -150,17 +154,17 @@ public class AppointmentMenu implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+/**This method will display all appointments when selected*/
     public void viewAllRadioButtonClick(ActionEvent actionEvent) {
         appointmentTable.setItems(AppointmentsCRUD.getAllAppointments());
 
     }
-
+/**This method will display only appointments that occur in the current week when selected*/
     public void viewByWeekRadioButtonClick(ActionEvent actionEvent) {
         appointmentTable.setItems(AppointmentsCRUD.getAppointmentsByWeek());
 
     }
-
+/**This method will display only appointments that occur this month when selected*/
     public void viewByMonthRadioButtonClck(ActionEvent actionEvent) {
         appointmentTable.setItems(AppointmentsCRUD.getAppointmentsByMonth());
 

@@ -21,7 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+/**This controller displays all customers*/
 public class CustomerTable implements Initializable {
     public TableView <Customers> customerTable;
     public TableColumn customerIdColumn;
@@ -36,7 +36,7 @@ public class CustomerTable implements Initializable {
     public Button deleteCustomerButton;
     public TableColumn countryColumn;
     public TableColumn stateProvinceColumn;
-
+/**This method initializes the controller and populates the table with the customer data*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -53,7 +53,7 @@ public class CustomerTable implements Initializable {
 
 
     }
-
+/*This method takes you back to the appointment menu on click*/
     public void backToAppointmentsButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -62,7 +62,7 @@ public class CustomerTable implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+/**This method takes you to the add customer menu on click*/
     public void addCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/addCustomer.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -72,6 +72,9 @@ public class CustomerTable implements Initializable {
         stage.show();
     }
 
+    /**This method takes you to the modify customer menu on click.
+     * If no customer is selected the proper error message will dispaly.
+     */
     public void modifyCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         if (customerTable.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -94,7 +97,9 @@ public class CustomerTable implements Initializable {
             stage.show();
         }
     }
-
+/*This method will delete a customer and all associated appointments on click
+* If no customer is selected an appropriate error message displays.
+* */
     public void deleteCustomerButtonClick(ActionEvent actionEvent) throws SQLException {
         Customers CP = customerTable.getSelectionModel().getSelectedItem();
 

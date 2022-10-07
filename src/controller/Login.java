@@ -29,7 +29,8 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-
+/**This controller allows for login to the application
+ * The view will automatically change language to french or english dependent on local machine settings.*/
 public class Login implements Initializable {
     public TextField userNameField;
     public TextField passwordField;
@@ -43,7 +44,10 @@ public class Login implements Initializable {
     public Label displayLanguage;
     ResourceBundle rb = ResourceBundle.getBundle("Lang", Locale.getDefault());
 
-
+    /**LAMBDA USED in the initialize to change the zoneID based on the the local machines settings, This method initializes the controller.
+     * Method will convert the langauge to FR or ENG dependent on local machine settings. Time zone is updated to display local machine settings.
+     * @param resourceBundle Language resources bundles utilizes to convert languge to eng or FR
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -73,7 +77,9 @@ public class Login implements Initializable {
     }
 
 
-
+    /**This method logs the user into application to access the appointments.
+     *Method will check for correct username/password and if there are any appointments within 15 minutes of logging in.
+     */
     public void loginButtonAction(ActionEvent actionEvent) throws SQLException, IOException {
 
         try {
@@ -131,7 +137,7 @@ public class Login implements Initializable {
 
     public void languageTabAction(ActionEvent actionEvent) {
     }
-
+/**This method will close the program.*/
     public void closeButton(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
@@ -144,8 +150,8 @@ public class Login implements Initializable {
         }
     }
 /**This method tracks successful and failed logins.
- * The login histor is stored in a file named login_activity.txt.
- * @param userName Username that is inputed
+ * The login history is stored in a file named login_activity.txt.
+ * @param userName Username that is inputted.
  * @param login If login was successful or failed.
  * */
     public void  loginTracker(String userName, boolean login) throws IOException {

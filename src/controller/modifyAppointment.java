@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
-
+/**This controller allows for updates on appointments*/
 public class modifyAppointment implements Initializable {
     public TextField modifyAppointmentIdBox;
     public TextField modifyTitleBox;
@@ -34,6 +34,11 @@ public class modifyAppointment implements Initializable {
     public ComboBox<Customers> modifyCustomerIdComboBox;
     public ComboBox<User> modifyUserIdComboBox;
 
+    /**This method initializes the controller.
+     * populates the combo boxes with the correct data.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -58,6 +63,10 @@ public class modifyAppointment implements Initializable {
 
     }
 
+    /**This method recieves the data from the SQL database and populates the appropriate boxes
+     *
+     * @param data This is the appointments data.
+     */
     public void receiveAppointmentData(Appointments data) {
 
 
@@ -83,6 +92,12 @@ public class modifyAppointment implements Initializable {
         modifyContactIDComboBox.setValue(c);
     }
 
+    /**This saves the new data to the selected appointment, LAMBDA used here to generate a error message if the title is not listed.
+     * Appropriate checkes are performed and error messages are created accordingly.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void modifySaveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
         User user = modifyUserIdComboBox.getValue();
@@ -247,7 +262,7 @@ public class modifyAppointment implements Initializable {
             e.printStackTrace();
         }
     }
-
+/**Method returns user to appointment menu on click*/
         public void modifyCancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

@@ -39,7 +39,8 @@ public class AddCustomer implements Initializable {
         countryComboBox.setItems(CountriesCRUD.getAllCountries());
 
     }
-/**This method will save the new customer information*/
+/**This method will save the new customer information.
+ * The method will add new customer data to the SQL database and will display the proper error message if incorrect or no data is entered.*/
     public void saveButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
 
         String customer = customerNameBox.getText();
@@ -103,7 +104,7 @@ public class AddCustomer implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+/**This method will return the user to the customer Menu when clicked*/
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -113,6 +114,9 @@ public class AddCustomer implements Initializable {
         stage.show();
     }
 
+    /**This method will populate the state/province box on click.
+     * Once the Country selection is made the state/province box populates with the corresponding states/provinces.
+     */
     public void countryComboBoxClick(ActionEvent actionEvent) {
         int countryId = countryComboBox.getValue().getCountryId();
         ObservableList<Divisions> list = DivisionCRUD.getCountryDivisions(countryId);
