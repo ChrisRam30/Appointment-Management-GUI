@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
+/**Controller that allows for update of customers*/
 public class ModifyCustomer implements Initializable {
     public Button saveButton;
     public Button cancelButton;
@@ -37,7 +37,7 @@ public class ModifyCustomer implements Initializable {
     public ComboBox<Countries> countryComboBox;
     public ComboBox<Divisions> stateProvinceComboBox;
 
-
+/*Initializes controller*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         countryComboBox.setItems(CountriesCRUD.getAllCountries());
@@ -45,6 +45,10 @@ public class ModifyCustomer implements Initializable {
 
     }
 
+    /**Method receives customer data that was selected from customer menu.
+     *
+     * @param data from the customer menu.
+     */
     public void receiveCustomerData(Customers data) {
 
         customerIdBox.setText(String.valueOf(data.getCustomerId()));
@@ -60,6 +64,12 @@ public class ModifyCustomer implements Initializable {
 
     }
 
+    /**Saves customer data to SQL DB
+     * Displays appropriate error messages if incorrect or blank entries.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void saveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
 
         String customer = customerNameBox.getText();
@@ -125,7 +135,7 @@ public class ModifyCustomer implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+/**Method returns user to customer menu on click*/
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/customerTable.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -135,6 +145,10 @@ public class ModifyCustomer implements Initializable {
         stage.show();
     }
 
+    /**Method populates the state/province box based on selected country
+     *
+     * @param actionEvent
+     */
     public void countryComboBoxClick(ActionEvent actionEvent) {
         int countryId = countryComboBox.getValue().getCountryId();
         ObservableList<Divisions> list = DivisionCRUD.getCountryDivisions(countryId);

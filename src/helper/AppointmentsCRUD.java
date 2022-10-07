@@ -11,6 +11,9 @@ import model.Contacts;
 import model.MonthCustomerCount;
 import model.MonthTypeCount;
 
+/**Helper to access, update, read or delete appointmetn related information
+ *
+ */
 public class AppointmentsCRUD {
     public static ObservableList<Appointments> getAllAppointments() {
 
@@ -47,7 +50,8 @@ public class AppointmentsCRUD {
     }
 
 
-
+    /**Method to insert appointment data.
+     */
     public static int insertAppointment(String title, String description, String location,
                              String type, Timestamp startDateTime, Timestamp endDateTime,
                              int customerId, int userId, int contactId) throws SQLException { //indicates what you want inserted
@@ -65,7 +69,7 @@ public class AppointmentsCRUD {
         int rowsAffected = ps.executeUpdate(); //required to initiate in main
         return rowsAffected;
     }
-
+/**Method to delete appointment data.*/
     public static void deleteAppointment(int appointmentId) throws SQLException { //indicates what you want deleted
         try {
             String sql = "DELETE FROM APPOINTMENTS WHERE Appointment_ID = ?";
@@ -78,7 +82,7 @@ public class AppointmentsCRUD {
             throwables.printStackTrace();
         }
     }
-
+/**Method to modify appointment data*/
     public static int modifyAppointment(String title, String description, String location,
                                         String type, Timestamp startDateTime, Timestamp endDateTime,
                                         int customerId, int userId, int contactId, int appointmentId) throws SQLException { //indicates what you want inserted
@@ -97,7 +101,7 @@ public class AppointmentsCRUD {
         int rowsAffected = ps.executeUpdate(); //required to initiate in main
         return rowsAffected;
     }
-
+/**Method that queries the SQL DB for appointments for the current month*/
     public static ObservableList<Appointments> getAppointmentsByMonth() {
 
         ObservableList<Appointments> aList = FXCollections.observableArrayList();
@@ -127,7 +131,7 @@ public class AppointmentsCRUD {
         }
         return aList;
     }
-
+/**Method that queries the SQL DB for appointments for current week*/
     public static ObservableList<Appointments> getAppointmentsByWeek() {
 
         ObservableList<Appointments> aList = FXCollections.observableArrayList();
@@ -157,7 +161,7 @@ public class AppointmentsCRUD {
         }
         return aList;
     }
-
+/**Method that queries the SQL DB for appointments based on a specific contact selected*/
     public static ObservableList<Appointments> getContactAppointments(int contactId) {
         ObservableList<Appointments> cList = FXCollections.observableArrayList();
 
@@ -188,7 +192,7 @@ public class AppointmentsCRUD {
         }
         return cList;
     }
-
+/**Method that queries the SQL DB for appointments by a specific type*/
     public static ObservableList<Appointments> getTypeAppointments(String typeAppointments) {
         ObservableList<Appointments> cList = FXCollections.observableArrayList();
 
@@ -220,7 +224,7 @@ public class AppointmentsCRUD {
         return cList;
     }
 
-    public static ObservableList<Timestamp> getAllMonths() { //this allows for the call of DISTINCT months to combo box*****
+   /* public static ObservableList<Timestamp> getAllMonths() { //this allows for the call of DISTINCT months to combo box*****
 
         ObservableList<Timestamp> tList = FXCollections.observableArrayList();
         try {
@@ -237,8 +241,11 @@ public class AppointmentsCRUD {
             throwables.printStackTrace();
         }
         return tList;
-    }
+    }*/
 
+    /**Helper that queries for the SQL DB for the number of appointments by month and type
+
+     */
     public static ObservableList<MonthTypeCount> getAppointmentTMCount() {
 
         ObservableList<MonthTypeCount> cList = FXCollections.observableArrayList();
@@ -262,6 +269,8 @@ public class AppointmentsCRUD {
         return cList;
     }
 
+    /**Helper that queries the SQL DB for the number of appointments by month for each customer
+     */
     public static ObservableList<MonthCustomerCount> getAppointmentMCCount() {
 
         ObservableList<MonthCustomerCount> cList = FXCollections.observableArrayList();

@@ -17,6 +17,9 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
+/**Controller that displays number appointments for each customer by month
+ *
+ */
 public class MonthlyCustomerAppointmentReport implements Initializable {
 
     public TableColumn typeColumn;
@@ -26,7 +29,11 @@ public class MonthlyCustomerAppointmentReport implements Initializable {
     public TableColumn countColumn;
     public TableColumn customerColumn;
 
-
+    /**Method initializes the controller and populates the customer table
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -38,7 +45,11 @@ public class MonthlyCustomerAppointmentReport implements Initializable {
 
     }
 
-
+    /**Method takes the user back to the reports menu on click
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backToAppointmentsButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();

@@ -17,6 +17,9 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
+/**Controller displays the amount of each type of appointment by month
+ *
+ */
 public class TypeReports implements Initializable {
 
     public TableColumn typeColumn;
@@ -25,7 +28,11 @@ public class TypeReports implements Initializable {
     public TableColumn monthColumn;
     public TableColumn countColumn;
 
-
+    /**Initializes the controller and populates the table with the information.
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -38,7 +45,11 @@ public class TypeReports implements Initializable {
 
     }
 
-
+    /**Method takes user back to the reports menu on click
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backToAppointmentsButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
