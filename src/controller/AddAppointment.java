@@ -227,7 +227,7 @@ public class AddAppointment implements Initializable {
 
 
     }
-
+/**This method will return the user back to the appointment menu*/
     public void cancelButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentMenu.fxml"));
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
