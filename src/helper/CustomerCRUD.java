@@ -9,6 +9,9 @@ import model.Countries;
 import model.Customers;
 import model.Divisions;
 
+/**Helper method to create, read, update and delete customer data
+ *
+ */
 public class CustomerCRUD {
 
     public static ObservableList<Customers> getAllCustomers() {
@@ -34,6 +37,10 @@ public class CustomerCRUD {
         }
         return cList;
     }
+
+    /**Method to delete customer data.
+     * Method will delete appointment data before customer data.
+     */
     public static void deleteCustomer(int customerId) throws SQLException {
 
         try {
@@ -52,7 +59,7 @@ public class CustomerCRUD {
             throwables.printStackTrace();
         }
     }
-
+/**Method to add new customer data to the customer table*/
     public static int insertCustomer(String customerName, String address, String postalCode,
                                         String phone, int divisionId) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
@@ -65,7 +72,7 @@ public class CustomerCRUD {
         int rowsAffected = ps.executeUpdate(); //required to initiate in main
         return rowsAffected;
     }
-
+/**Method to update customer data.*/
     public static int modifyCustomer(String customerName, String address, String postalCode,
                                      String phone, int divisionId, int customerId) throws SQLException { //indicates what you want inserted
         String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ? ";
@@ -79,7 +86,7 @@ public class CustomerCRUD {
         int rowsAffected = ps.executeUpdate(); //required to initiate in main
         return rowsAffected;
     }
-
+/**Method to query the SQL DB to get the customer data for a specific customer ID*/
     public static Customers getCustomers(int customerId) {
         try {
             String SQL = "SELECT * FROM Customers WHERE Customer_ID = ?";

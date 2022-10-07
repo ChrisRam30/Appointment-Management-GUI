@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**Helper method for contacts to update, read , delete and create
+ *
+ */
 public class ContactsCRUD {
 
     public static ObservableList<Contacts> getAllContacts() {
@@ -34,6 +37,8 @@ public class ContactsCRUD {
         return cList;
     }
 
+    /**Helper used to query the SQL DB for all contacts with a specific contact ID
+     */
     public static Contacts getContacts(int contactId) {
         try {
             String SQL = "SELECT * FROM Contacts WHERE Contact_ID = ?";

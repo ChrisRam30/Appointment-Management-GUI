@@ -6,6 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Countries;
 
+/**Helper method used to create, read, update and delete country data
+ *
+ */
 public class CountriesCRUD {
     public static ObservableList<Countries> getAllCountries() {
         ObservableList<Countries> cList = FXCollections.observableArrayList();
@@ -27,6 +30,8 @@ public class CountriesCRUD {
         return cList;
     }
 
+    /**Helper used to query the DB to get countries with the same divisionID
+     */
     public static Countries getCountryByDivision(int divisionId) {
         try {
             String SQL = "SELECT C.* FROM Countries AS C INNER JOIN First_Level_Divisions AS D ON C.COUNTRY_ID = D.COUNTRY_ID AND D.DIVISION_ID = ?";
