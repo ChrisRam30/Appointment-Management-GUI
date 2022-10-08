@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="265.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModifyCustomer">
+   <children>
+      <Button fx:id="saveButton" layoutX="208.0" layoutY="216.0" mnemonicParsing="false" onAction="#saveButtonClick" text="Save" />
+      <Button fx:id="cancelButton" layoutX="318.0" layoutY="216.0" mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
+      <Label layoutX="70.0" layoutY="43.0" text="Customer ID" />
+      <Label layoutX="70.0" layoutY="89.0" text="Customer Name" />
+      <Label layoutX="70.0" layoutY="136.0" text="Address" />
+      <Label layoutX="437.0" layoutY="43.0" text="Postal Code" />
+      <Label layoutX="437.0" layoutY="89.0" text="Phone Number" />
+      <Label layoutX="439.0" layoutY="187.0" text="State/Province" />
+      <TextField fx:id="customerIdBox" disable="true" layoutX="208.0" layoutY="39.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField fx:id="customerNameBox" layoutX="208.0" layoutY="85.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField fx:id="addressBox" layoutX="208.0" layoutY="135.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField fx:id="postalCodeBox" layoutX="562.0" layoutY="39.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField fx:id="phoneBox" layoutX="562.0" layoutY="85.0" prefHeight="25.0" prefWidth="162.0" />
+      <ComboBox fx:id="countryComboBox" layoutX="562.0" layoutY="132.0" onAction="#countryComboBoxClick" prefHeight="25.0" prefWidth="162.0" />
+      <Label layoutX="439.0" layoutY="139.0" text="Country" />
+      <ComboBox fx:id="stateProvinceComboBox" layoutX="562.0" layoutY="183.0" prefHeight="25.0" prefWidth="162.0" />
+   </children>
+</AnchorPane>
