@@ -118,6 +118,8 @@ If no appointment is selected a warning will display and confirmation will be as
     public void deleteAppointmentClick(ActionEvent actionEvent) throws SQLException {
 
         Appointments AP = appointmentTable.getSelectionModel().getSelectedItem();
+        int apptId = AP.getAppointmentId();
+        String type = AP.getType();
 
         if(AP == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -127,7 +129,7 @@ If no appointment is selected a warning will display and confirmation will be as
         else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Appointment delete Confirmation");
-            alert.setContentText("Are you sure you want to delete this Appointment?");
+            alert.setContentText("Are you sure you want to delete this Appointment?" + "\nAppointment:" +apptId + "\nType:" + type);
             Optional<ButtonType> confirmation = alert.showAndWait();
 
             if (confirmation.get() == ButtonType.OK) {
