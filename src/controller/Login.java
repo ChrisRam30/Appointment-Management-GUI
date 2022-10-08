@@ -119,19 +119,22 @@ public class Login implements Initializable {
                 stage.setTitle("Appointment Menu");
                 stage.setScene(scene);
                 stage.show();
+                String userName = userNameField.getText();
+
+                loginTracker(userName, true);
             } else {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 if(Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
                         alert.setContentText(rb.getString("incorrectLogin"));
-                    }
-                    Optional<ButtonType> result = alert.showAndWait();
+                    String userName = userNameField.getText();
+                    loginTracker(userName, false);
+
                 }
+                    Optional<ButtonType> result = alert.showAndWait();
+            }
             }catch (Exception e) {
             System.out.println("Exception:" + e.getMessage());
         }
-        String userName = userNameField.getText();
-
-        loginTracker(userName, true);
 
         }
 
