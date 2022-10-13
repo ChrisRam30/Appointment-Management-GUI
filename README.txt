@@ -1,8 +1,7 @@
 #APPOINTMENT_APPLICATION
-Purpose - Appointment scheduling CRUD that allows for the creation, reading, update and deletion of appointments and customers. Additionally,
-there are three unique reports. 
+Purpose - Appointment scheduling CRUD that allows for the creation, reading, update and deletion of appointments and customers. Three unique reports are included.
 
-Features - Login authentication with log of failed and successful attempts, timezone based in EST with automatic convertions based on local 
+Features - Login authentication with log of failed and successful attempts, timezone based in EST with automatic conversions based on local 
 machine settings, relational DB management, unique reports to manage customers/contacts appointments, and language conversion to french or 
 english for the login screen based on local machine settings.
 
